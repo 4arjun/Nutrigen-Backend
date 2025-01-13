@@ -142,7 +142,7 @@ def mock_get_ingredients(barcode_data):
             image = data["product"].get("image_small_url", "No image available")
             nutrients_text = data["product"].get("nutriments", {})
             name = data["product"].get("product_name","")
-            Nutri = [
+            Nutri = {"value":[
                 {"name": "energy", "value": nutrients_text.get("energy-kcal_100g", 0)},
                 {"name": "Fat", "value": nutrients_text.get("fat_100g", 0)},
                 {"name": "Carbohydrates", "value":nutrients_text.get("carbohydrates_100g", 0)},
@@ -153,7 +153,7 @@ def mock_get_ingredients(barcode_data):
                 {"name": "Sugar", "value": nutrients_text.get("sugars_100g", 0)},
                 {"name": "Fiber", "value": nutrients_text.get("fiber_100g", 0)},
                 
-            ]
+            ]}
             print("Nutri:",Nutri)
             nutrients = {"value":[
                 {"name": "energy", "value": f'{nutrients_text.get("energy-kcal_100g", 0)} Kcal'},
