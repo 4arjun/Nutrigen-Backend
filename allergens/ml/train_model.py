@@ -12,26 +12,21 @@ from sklearn.model_selection import cross_val_score
 import joblib
 import torch
 
-# Load Dataset
 data = pd.read_csv("allergens/data/allergen_data.csv")
 print(data.columns)
 
-# Data Cleaning
 data = data.dropna(subset=["Ingredient"])
 X = data['Ingredient'].fillna("unknown")
 y = data['Allergen'].str.strip("[]").str.replace("'", "").str.split(", ")
 y = y.apply(lambda allergens: [allergen.lower() for allergen in allergens])
 
-# Initialize TF-IDF Vectorizer
 vectorizer = TfidfVectorizer()
 X_tfidf = vectorizer.fit_transform(X)
 
-# Initialize BERT
 print("Loading BERT model...")
 tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
 bert_model = AutoModel.from_pretrained("bert-base-uncased")
 
-# Generate BERT Embeddings
 def generate_bert_embedding(text):
     """
     Generate BERT embeddings for a given text.
@@ -44,14 +39,11 @@ def generate_bert_embedding(text):
 print("Generating BERT embeddings...")
 X_bert = np.array([generate_bert_embedding(text) for text in X])
 
-# Combine TF-IDF and BERT Features
 X_combined = hstack([X_tfidf, X_bert])
 
-# Transform Labels
 mlb = MultiLabelBinarizer()
 y_transformed = mlb.fit_transform(y)
 
-# Define Ensemble Model
 rf_model = RandomForestClassifier(random_state=42)
 gb_model = GradientBoostingClassifier()
 lr_model = LogisticRegression(max_iter=500, solver='liblinear')
@@ -61,17 +53,14 @@ ensemble_model = VotingClassifier(
     voting='soft'
 )
 
-# Train Model
 print("Training ensemble model with BERT and TF-IDF...")
 model = OneVsRestClassifier(ensemble_model)
 model.fit(X_combined, y_transformed)
 
-# Save Model, Vectorizer, and MultiLabelBinarizer
 joblib.dump(model, "allergens/ml/allergen_bert_tfidf_ensemble_model.pkl")
 joblib.dump(vectorizer, "allergens/ml/vectorizer.pkl")
 joblib.dump(mlb, "allergens/ml/mlb.pkl")
 print("Model, vectorizer, and label binarizer saved successfully!")
 
-# Cross-Validation
 scores = cross_val_score(model, X_combined, y_transformed, cv=5)
 print(f"Cross-validation accuracy: {scores.mean():.2f}")

@@ -6,8 +6,12 @@ from transformers import AutoTokenizer, AutoModel
 import torch
 import numpy as np
 import inflect
+from scipy.sparse import hstack
+from sklearn.metrics.pairwise import cosine_similarity
+from rapidfuzz import fuzz
 
-# Load Pretrained Model and Tokenizer
+
+
 MODEL_PATH = "allergens/ml/allergen_bert_tfidf_ensemble_model.pkl"
 VECTORIZER_PATH = "allergens/ml/vectorizer.pkl"
 MLB_PATH = "allergens/ml/mlb.pkl"
@@ -19,7 +23,6 @@ mlb = joblib.load(MLB_PATH)
 tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
 bert_model = AutoModel.from_pretrained("bert-base-uncased")
 
-# Initialize Inflect for Normalization
 inflect_engine = inflect.engine()
 
 def normalize_allergen(allergen):
@@ -47,20 +50,29 @@ def detect_allergens(request):
             user_allergens = [normalize_allergen(a) for a in user_allergens]
             ingredients = data.get("ingredients", [])
 
-            # Generate Features
             ingredient_text = ", ".join(ingredients)
             X_tfidf = vectorizer.transform([ingredient_text])
             X_bert = np.array([generate_bert_embedding(ingredient_text)])
             X_combined = hstack([X_tfidf, X_bert])
 
-            # Predict Allergens
+            user_allergen_embeddings = [generate_bert_embedding(allergen) for allergen in user_allergens]
+
             predicted_allergens_binary = model.predict(X_combined)
             predicted_allergens = [
                 normalize_allergen(a) for a in mlb.inverse_transform(predicted_allergens_binary)[0]
             ]
 
-            # Find Intersection with User Allergens
-            detected_allergens = set(predicted_allergens).intersection(set(user_allergens))
+            detected_allergens = set()
+            for allergen, allergen_embedding in zip(user_allergens, user_allergen_embeddings):
+                similarity = cosine_similarity(X_bert, [allergen_embedding])[0][0]
+                if similarity > 0.8:
+                    detected_allergens.add(allergen)
+
+                for predicted_allergen in predicted_allergens:
+                    if fuzz.ratio(allergen, predicted_allergen) > 85: 
+                        detected_allergens.add(predicted_allergen)
+
+            detected_allergens.update(set(predicted_allergens).intersection(set(user_allergens)))
 
             return JsonResponse({
                 "detected_allergens": list(detected_allergens),
