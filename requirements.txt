@@ -1,7 +1,9 @@
 asgiref==3.8.1
 Django==5.1.4
 django-cors-headers==4.6.0
+inflect==7.5.0
 joblib==1.4.2
+more-itertools==10.5.0
 numpy==2.2.1
 pandas==2.2.3
 python-dateutil==2.9.0.post0
@@ -11,4 +13,6 @@ scipy==1.15.1
 six==1.17.0
 sqlparse==0.5.3
 threadpoolctl==3.5.0
+typeguard==4.4.1
+typing_extensions==4.12.2
 tzdata==2024.2
