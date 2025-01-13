@@ -16,6 +16,7 @@ def detect_allergens(request):
     if request.method == "POST":
         data = json.loads(request.body)
         user_allergens = data.get("user_allergens", [])
+        user_allergens = [allergen.lower() for allergen in data.get("user_allergens", [])]
         ingredients = data.get("ingredients", [])
 
         ingredient_text = ", ".join(ingredients)
