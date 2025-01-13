@@ -2,6 +2,10 @@ import joblib
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
+import inflect
+
+inflect_engine = inflect.engine()
+
 
 MODEL_PATH = "allergens/ml/allergen_model.pkl"
 VECTORIZER_PATH = "allergens/ml/vectorizer.pkl"
@@ -11,12 +15,20 @@ model = joblib.load(MODEL_PATH)
 vectorizer = joblib.load(VECTORIZER_PATH)
 mlb = joblib.load(MLB_PATH)
 
+def normalize_allergen(allergen):
+    """
+    Normalize allergens by converting to lowercase and singularizing.
+    """
+    allergen = allergen.lower()  
+    return inflect_engine.singular_noun(allergen) or allergen  
+
+
 @csrf_exempt
 def detect_allergens(request):
     if request.method == "POST":
         data = json.loads(request.body)
         user_allergens = data.get("user_allergens", [])
-        user_allergens = [allergen.lower() for allergen in data.get("user_allergens", [])]
+        user_allergens = [normalize_allergen(a) for a in user_allergens]
         ingredients = data.get("ingredients", [])
 
         ingredient_text = ", ".join(ingredients)
@@ -24,8 +36,9 @@ def detect_allergens(request):
         X_input = vectorizer.transform([ingredient_text])
 
         predicted_allergens_binary = model.predict(X_input)
-        predicted_allergens = mlb.inverse_transform(predicted_allergens_binary)[0]
-
+        predicted_allergens = [
+                        normalize_allergen(a) for a in mlb.inverse_transform(predicted_allergens_binary)[0]
+                    ]
         detected_allergens = set(predicted_allergens).intersection(set(user_allergens))
 
         print("Predicted Allergens:", predicted_allergens)
