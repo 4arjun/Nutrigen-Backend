@@ -1,0 +1,501 @@
+Ingredient List,Allergens
+"ground peanuts, whole eggs, modified corn starch, caramel coloring","['Peanuts', 'Eggs', 'General Allergen']"
+"natural flavors, whey protein isolate, lecithin",['Milk']
+"high-fructose corn syrup, caramel coloring, egg whites, palm oil","['Eggs', 'General Allergen']"
+"walnut pieces, artificial sweeteners, high-fructose corn syrup",['Tree Nuts']
+"palm oil, calcium caseinate, lecithin, whole eggs","['Milk', 'Eggs']"
+"caramel coloring, natural flavors",['General Allergen']
+"palm oil, milk solids, anchovy paste, crab flavoring","['Shellfish', 'Milk', 'Fish']"
+"peanut oil, high-fructose corn syrup, modified corn starch",['Peanuts']
+"crab flavoring, artificial sweeteners, whole eggs, lecithin","['Shellfish', 'Eggs']"
+"palm oil, hazelnut spread, whey protein isolate, natural flavors","['Milk', 'Tree Nuts']"
+"artificial sweeteners, soy lecithin, anchovy paste, lecithin","['Fish', 'Soy']"
+"lobster meat, high-fructose corn syrup, anchovy paste, natural flavors","['Shellfish', 'Fish']"
+"crab flavoring, peanut flour, natural flavors","['Shellfish', 'Peanuts']"
+"barley malt, caramel coloring, lobster meat, natural flavors","['Shellfish', 'Gluten', 'General Allergen']"
+"whole eggs, high-fructose corn syrup",['Eggs']
+"walnut pieces, calcium caseinate, soybean oil, natural flavors","['Milk', 'Soy', 'Tree Nuts']"
+"modified corn starch, whole eggs, milk solids, soy lecithin","['Milk', 'Soy', 'Eggs']"
+"palm oil, modified corn starch, artificial flavors",['General Allergen']
+"anchovy paste, high-fructose corn syrup, ground peanuts, rye bread","['Peanuts', 'Gluten', 'Fish']"
+"high-fructose corn syrup, whey protein isolate, modified corn starch",['Milk']
+"crab flavoring, milk solids, artificial sweeteners, modified corn starch","['Shellfish', 'Milk']"
+"palm oil, soy lecithin, anchovy paste, whole eggs, modified corn starch","['Fish', 'Soy', 'Eggs']"
+"natural flavors, high-fructose corn syrup, whey protein isolate",['Milk']
+"natural flavors, high-fructose corn syrup, wheat flour, peanut flour, natural flavors","['Peanuts', 'Gluten', 'General Allergen']"
+"artificial flavors, palm oil, walnut pieces, artificial sweeteners","['Tree Nuts', 'General Allergen']"
+"hazelnut spread, natural flavors, palm oil","['Tree Nuts', 'General Allergen']"
+"dried egg yolk, walnut pieces, palm oil, lecithin","['Tree Nuts', 'Eggs']"
+"modified corn starch, soy lecithin, natural flavors",['Soy']
+"peanut flour, dried egg yolk, milk solids, artificial sweeteners","['Peanuts', 'Milk', 'Eggs']"
+"natural flavors, ground peanuts, high-fructose corn syrup, rye bread","['Peanuts', 'Gluten']"
+"high-fructose corn syrup, lobster meat, whey protein isolate","['Shellfish', 'Milk']"
+"rye bread, hydrolyzed soy protein, ground peanuts, artificial sweeteners","['Peanuts', 'Gluten', 'Soy']"
+"caramel coloring, lecithin",['General Allergen']
+"lecithin, egg whites, natural flavors",['Eggs']
+"caramel coloring, ground peanuts, modified corn starch, soybean oil","['Peanuts', 'Soy', 'General Allergen']"
+"soybean oil, lecithin, egg whites","['Soy', 'Eggs']"
+"lecithin, natural flavors, palm oil",['General Allergen']
+"egg whites, calcium caseinate, artificial sweeteners, lecithin, rye bread","['Gluten', 'Eggs', 'Milk']"
+"lecithin, rye bread, soy lecithin, palm oil, whey protein isolate","['Gluten', 'Soy', 'Milk']"
+"walnut pieces, natural flavors, crab flavoring, barley malt","['Shellfish', 'Gluten', 'Tree Nuts']"
+"modified corn starch, natural flavors, ground peanuts",['Peanuts']
+"modified corn starch, egg whites",['Eggs']
+"hydrolyzed soy protein, natural flavors, artificial flavors, lobster meat","['Shellfish', 'Soy', 'General Allergen']"
+"modified corn starch, almond extract",['Tree Nuts']
+"egg whites, rye bread, modified corn starch, artificial flavors","['Gluten', 'Eggs', 'General Allergen']"
+"pollock, lecithin",['Fish']
+"dried egg yolk, hydrolyzed soy protein, palm oil, crab flavoring","['Shellfish', 'Soy', 'Eggs']"
+"palm oil, natural flavors, peanut flour, egg whites","['Peanuts', 'Eggs']"
+"palm oil, artificial sweeteners, fish sauce",['Fish']
+"palm oil, lecithin, walnut pieces",['Tree Nuts']
+"peanut flour, crab flavoring, soybean oil, modified corn starch","['Shellfish', 'Soy', 'Peanuts']"
+"natural flavors, whey protein isolate, natural flavors, lecithin, ground peanuts","['Peanuts', 'Milk', 'General Allergen']"
+"soy lecithin, high-fructose corn syrup, barley malt, modified corn starch, crab flavoring","['Shellfish', 'Gluten', 'Soy']"
+"dried egg yolk, high-fructose corn syrup, modified corn starch, barley malt, anchovy paste","['Gluten', 'Fish', 'Eggs']"
+"soy lecithin, lecithin, wheat flour, artificial flavors","['Gluten', 'Soy', 'General Allergen']"
+"natural flavors, anchovy paste, soybean oil, palm oil","['Fish', 'Soy']"
+"whole eggs, high-fructose corn syrup, modified corn starch, almond extract","['Tree Nuts', 'Eggs']"
+"almond extract, lecithin, natural flavors",['Tree Nuts']
+"hydrolyzed soy protein, crab flavoring, artificial sweeteners, whole eggs, lecithin","['Shellfish', 'Soy', 'Eggs']"
+"artificial sweeteners, barley malt, lecithin, xanthan gum, hydrolyzed soy protein","['Gluten', 'Soy', 'General Allergen']"
+"milk solids, artificial sweeteners, natural flavors",['Milk']
+"high-fructose corn syrup, shrimp extract, hazelnut spread, pollock","['Shellfish', 'Fish', 'Tree Nuts']"
+"walnut pieces, lecithin, caramel coloring, anchovy paste","['Fish', 'Tree Nuts', 'General Allergen']"
+"barley malt, fish sauce, whole eggs, natural flavors","['Gluten', 'Fish', 'Eggs']"
+"walnut pieces, modified corn starch, anchovy paste, whole eggs","['Fish', 'Eggs', 'Tree Nuts']"
+"dried egg yolk, natural flavors, shrimp extract, palm oil","['Shellfish', 'Eggs']"
+"artificial sweeteners, calcium caseinate",['Milk']
+"high-fructose corn syrup, shrimp extract, pollock, barley malt, artificial sweeteners","['Shellfish', 'Gluten', 'Fish']"
+"palm oil, lecithin, dried egg yolk",['Eggs']
+"xanthan gum, natural flavors, lecithin",['General Allergen']
+"high-fructose corn syrup, dried egg yolk, artificial sweeteners, ground peanuts, almond extract","['Peanuts', 'Eggs', 'Tree Nuts']"
+"dried egg yolk, lecithin, soybean oil, casein","['Milk', 'Soy', 'Eggs']"
+"high-fructose corn syrup, casein",['Milk']
+"natural flavors, hydrolyzed soy protein, barley malt, palm oil","['Gluten', 'Soy']"
+"hazelnut spread, dried egg yolk, lecithin, lobster meat, palm oil","['Shellfish', 'Tree Nuts', 'Eggs']"
+"soy lecithin, artificial sweeteners",['Soy']
+"natural flavors, high-fructose corn syrup, soybean oil, natural flavors, rye bread","['Gluten', 'Soy', 'General Allergen']"
+"peanut flour, lecithin, lobster meat, modified corn starch","['Peanuts', 'Shellfish']"
+"soybean oil, whey protein isolate, palm oil, shrimp extract","['Shellfish', 'Milk', 'Soy']"
+"barley malt, palm oil, lecithin",['Gluten']
+"artificial flavors, barley malt, shrimp extract, artificial sweeteners, palm oil","['Shellfish', 'Gluten', 'General Allergen']"
+"palm oil, lecithin, caramel coloring",['General Allergen']
+"artificial flavors, fish sauce, natural flavors","['Fish', 'General Allergen']"
+"almond extract, artificial sweeteners, peanut flour, natural flavors, egg whites","['Peanuts', 'Eggs', 'Tree Nuts']"
+"modified corn starch, high-fructose corn syrup, peanut oil, milk solids, barley malt","['Peanuts', 'Milk', 'Gluten']"
+"palm oil, pollock, calcium caseinate, modified corn starch","['Milk', 'Fish']"
+"palm oil, egg whites, natural flavors, soybean oil","['Soy', 'Eggs']"
+"peanut flour, hazelnut spread, whey protein isolate, high-fructose corn syrup","['Peanuts', 'Milk', 'Tree Nuts']"
+"egg whites, almond extract, artificial sweeteners","['Eggs', 'Tree Nuts']"
+"whey protein isolate, artificial sweeteners, barley malt, natural flavors, ground peanuts","['Peanuts', 'Milk', 'Gluten']"
+"peanut flour, palm oil, modified corn starch, milk solids","['Peanuts', 'Milk']"
+"ground peanuts, lecithin",['Peanuts']
+"shrimp extract, palm oil",['Shellfish']
+"lecithin, crab flavoring, hydrolyzed soy protein, natural flavors, modified corn starch","['Shellfish', 'Soy', 'General Allergen']"
+"artificial sweeteners, dried egg yolk, barley malt","['Gluten', 'Eggs']"
+"lobster meat, lecithin, natural flavors",['Shellfish']
+"crab flavoring, modified corn starch, wheat flour, hazelnut spread","['Shellfish', 'Gluten', 'Tree Nuts']"
+"egg whites, almond extract, palm oil","['Eggs', 'Tree Nuts']"
+"soybean oil, palm oil, lobster meat, modified corn starch","['Shellfish', 'Soy']"
+"natural flavors, fish sauce, artificial sweeteners",['Fish']
+"shrimp extract, soy lecithin, fish sauce, natural flavors","['Shellfish', 'Fish', 'Soy']"
+"palm oil, crab flavoring",['Shellfish']
+"anchovy paste, hazelnut spread, modified corn starch, soybean oil","['Fish', 'Soy', 'Tree Nuts']"
+"calcium caseinate, artificial sweeteners, soy lecithin","['Milk', 'Soy']"
+"high-fructose corn syrup, calcium caseinate",['Milk']
+"walnut pieces, modified corn starch, egg whites, palm oil, calcium caseinate","['Milk', 'Eggs', 'Tree Nuts']"
+"natural flavors, barley malt, whole eggs, high-fructose corn syrup, natural flavors","['Gluten', 'Eggs', 'General Allergen']"
+"peanut oil, rye bread, whole eggs, lecithin","['Peanuts', 'Gluten', 'Eggs']"
+"soybean oil, modified corn starch",['Soy']
+"modified corn starch, caramel coloring, artificial sweeteners, hazelnut spread","['Tree Nuts', 'General Allergen']"
+"barley malt, milk solids, artificial sweeteners, modified corn starch, pollock","['Gluten', 'Fish', 'Milk']"
+"artificial sweeteners, whole eggs, lecithin",['Eggs']
+"lecithin, casein, palm oil",['Milk']
+"walnut pieces, palm oil, modified corn starch, lobster meat","['Shellfish', 'Tree Nuts']"
+"high-fructose corn syrup, ground peanuts, xanthan gum","['Peanuts', 'General Allergen']"
+"milk solids, palm oil, rye bread, whole eggs","['Milk', 'Eggs', 'Gluten']"
+"natural flavors, modified corn starch, high-fructose corn syrup",['General Allergen']
+"modified corn starch, lecithin, fish sauce, almond extract","['Fish', 'Tree Nuts']"
+"walnut pieces, fish sauce, natural flavors, barley malt","['Gluten', 'Fish', 'Tree Nuts']"
+"lobster meat, natural flavors, artificial sweeteners",['Shellfish']
+"whole eggs, natural flavors",['Eggs']
+"dried egg yolk, lecithin, natural flavors","['Eggs', 'General Allergen']"
+"xanthan gum, natural flavors, palm oil",['General Allergen']
+"ground peanuts, anchovy paste, high-fructose corn syrup, natural flavors, soybean oil","['Peanuts', 'Fish', 'Soy']"
+"lecithin, walnut pieces",['Tree Nuts']
+"high-fructose corn syrup, shrimp extract, lecithin, wheat flour, whole eggs","['Shellfish', 'Gluten', 'Eggs']"
+"egg whites, high-fructose corn syrup, artificial sweeteners",['Eggs']
+"hydrolyzed soy protein, high-fructose corn syrup, rye bread","['Gluten', 'Soy']"
+"whole eggs, modified corn starch, peanut flour","['Peanuts', 'Eggs']"
+"natural flavors, palm oil, peanut oil",['Peanuts']
+"whole eggs, pollock, modified corn starch","['Fish', 'Eggs']"
+"wheat flour, artificial sweeteners, soy lecithin, pollock","['Gluten', 'Fish', 'Soy']"
+"peanut flour, lecithin, walnut pieces, palm oil","['Peanuts', 'Tree Nuts']"
+"modified corn starch, lobster meat, lecithin, peanut flour, wheat flour","['Shellfish', 'Gluten', 'Peanuts']"
+"lecithin, natural flavors, fish sauce",['Fish']
+"high-fructose corn syrup, lobster meat, artificial flavors, lecithin, whole eggs","['Shellfish', 'Eggs', 'General Allergen']"
+"anchovy paste, palm oil, dried egg yolk","['Fish', 'Eggs']"
+"artificial sweeteners, whey protein isolate, dried egg yolk","['Milk', 'Eggs']"
+"modified corn starch, natural flavors, egg whites, soybean oil","['Soy', 'Eggs']"
+"high-fructose corn syrup, modified corn starch, hydrolyzed soy protein",['Soy']
+"lecithin, shrimp extract, modified corn starch",['Shellfish']
+"lecithin, calcium caseinate, crab flavoring","['Shellfish', 'Milk']"
+"pollock, natural flavors, barley malt","['Gluten', 'Fish']"
+"modified corn starch, rye bread, artificial sweeteners, whey protein isolate, whole eggs","['Gluten', 'Eggs', 'Milk']"
+"soybean oil, high-fructose corn syrup, artificial sweeteners",['Soy']
+"whole eggs, natural flavors, peanut flour","['Peanuts', 'Eggs']"
+"natural flavors, ground peanuts, artificial sweeteners, shrimp extract","['Peanuts', 'Shellfish', 'General Allergen']"
+"soybean oil, natural flavors, whole eggs, artificial sweeteners","['Soy', 'Eggs', 'General Allergen']"
+"whole eggs, modified corn starch, high-fructose corn syrup, peanut oil, caramel coloring","['Peanuts', 'Eggs', 'General Allergen']"
+"palm oil, high-fructose corn syrup, calcium caseinate, hazelnut spread","['Milk', 'Tree Nuts']"
+"xanthan gum, lecithin",['General Allergen']
+"pollock, barley malt, lecithin, walnut pieces, modified corn starch","['Gluten', 'Fish', 'Tree Nuts']"
+"natural flavors, hazelnut spread, palm oil",['Tree Nuts']
+"lobster meat, peanut oil, natural flavors","['Shellfish', 'Peanuts']"
+"natural flavors, barley malt, soybean oil","['Gluten', 'Soy']"
+"milk solids, natural flavors, crab flavoring","['Shellfish', 'Milk']"
+"modified corn starch, xanthan gum, peanut flour, whole eggs, natural flavors","['Peanuts', 'Eggs', 'General Allergen']"
+"soy lecithin, natural flavors",['Soy']
+"natural flavors, hazelnut spread, soybean oil, artificial sweeteners","['Soy', 'Tree Nuts']"
+"palm oil, almond extract, modified corn starch",['Tree Nuts']
+"hazelnut spread, high-fructose corn syrup, barley malt, milk solids","['Gluten', 'Tree Nuts', 'Milk']"
+"palm oil, caramel coloring",['General Allergen']
+"walnut pieces, modified corn starch, palm oil, calcium caseinate","['Milk', 'Tree Nuts']"
+"natural flavors, natural flavors",['General Allergen']
+"artificial sweeteners, hazelnut spread, whole eggs","['Tree Nuts', 'Eggs']"
+"artificial sweeteners, lecithin, xanthan gum, walnut pieces, fish sauce","['Fish', 'Tree Nuts', 'General Allergen']"
+"high-fructose corn syrup, palm oil, milk solids, rye bread, peanut oil","['Peanuts', 'Gluten', 'Milk']"
+"modified corn starch, shrimp extract, high-fructose corn syrup, rye bread","['Shellfish', 'Gluten']"
+"palm oil, dried egg yolk, ground peanuts, almond extract","['Peanuts', 'Eggs', 'Tree Nuts']"
+"high-fructose corn syrup, hazelnut spread, rye bread, crab flavoring","['Shellfish', 'Gluten', 'Tree Nuts']"
+"lecithin, pollock, natural flavors, lobster meat","['Shellfish', 'Fish']"
+"lecithin, almond extract, peanut flour","['Peanuts', 'Tree Nuts']"
+"dried egg yolk, hydrolyzed soy protein, modified corn starch, lecithin","['Soy', 'Eggs']"
+"lecithin, peanut flour, rye bread, modified corn starch, pollock","['Peanuts', 'Gluten', 'Fish']"
+"walnut pieces, artificial flavors, natural flavors, fish sauce, artificial sweeteners","['Fish', 'Tree Nuts', 'General Allergen']"
+"hydrolyzed soy protein, almond extract, modified corn starch, xanthan gum, lecithin","['Soy', 'Tree Nuts', 'General Allergen']"
+"modified corn starch, fish sauce, casein","['Milk', 'Fish']"
+"modified corn starch, lecithin, soy lecithin",['Soy']
+"high-fructose corn syrup, dried egg yolk, palm oil",['Eggs']
+"hydrolyzed soy protein, high-fructose corn syrup, calcium caseinate, rye bread","['Gluten', 'Soy', 'Milk']"
+"natural flavors, shrimp extract",['Shellfish']
+"high-fructose corn syrup, artificial sweeteners, artificial flavors",['General Allergen']
+"palm oil, egg whites, ground peanuts","['Peanuts', 'Eggs']"
+"pollock, peanut oil, high-fructose corn syrup, artificial sweeteners, hazelnut spread","['Peanuts', 'Fish', 'Tree Nuts']"
+"almond extract, whole eggs, palm oil","['Eggs', 'Tree Nuts']"
+"natural flavors, pollock, peanut oil, artificial sweeteners, wheat flour","['Peanuts', 'Gluten', 'Fish']"
+"soybean oil, natural flavors, modified corn starch, hazelnut spread, natural flavors","['Soy', 'Tree Nuts', 'General Allergen']"
+"peanut oil, modified corn starch, walnut pieces, natural flavors, artificial sweeteners","['Peanuts', 'Tree Nuts', 'General Allergen']"
+"pollock, lecithin, peanut flour, palm oil","['Peanuts', 'Fish']"
+"lecithin, peanut flour",['Peanuts']
+"anchovy paste, barley malt, high-fructose corn syrup, lecithin","['Gluten', 'Fish']"
+"palm oil, modified corn starch, soybean oil",['Soy']
+"wheat flour, hydrolyzed soy protein, high-fructose corn syrup","['Gluten', 'Soy']"
+"lobster meat, hydrolyzed soy protein, barley malt, palm oil","['Shellfish', 'Gluten', 'Soy']"
+"natural flavors, dried egg yolk, high-fructose corn syrup",['Eggs']
+"modified corn starch, hydrolyzed soy protein, hazelnut spread, high-fructose corn syrup, barley malt","['Gluten', 'Soy', 'Tree Nuts']"
+"hazelnut spread, artificial sweeteners, pollock","['Fish', 'Tree Nuts']"
+"palm oil, lobster meat, high-fructose corn syrup",['Shellfish']
+"egg whites, walnut pieces, natural flavors, peanut flour","['Peanuts', 'Tree Nuts', 'Eggs']"
+"walnut pieces, lecithin, lobster meat, natural flavors","['Shellfish', 'Tree Nuts']"
+"natural flavors, palm oil, natural flavors, ground peanuts","['Peanuts', 'General Allergen']"
+"dried egg yolk, lecithin, modified corn starch",['Eggs']
+"peanut oil, palm oil, casein, lecithin, rye bread","['Peanuts', 'Milk', 'Gluten']"
+"palm oil, lobster meat, natural flavors",['Shellfish']
+"walnut pieces, modified corn starch, artificial sweeteners",['Tree Nuts']
+"artificial flavors, almond extract, modified corn starch","['Tree Nuts', 'General Allergen']"
+"pollock, palm oil",['Fish']
+"palm oil, peanut flour, shrimp extract, fish sauce","['Shellfish', 'Fish', 'Peanuts']"
+"modified corn starch, whole eggs",['Eggs']
+"barley malt, egg whites, ground peanuts, palm oil","['Peanuts', 'Gluten', 'Eggs']"
+"artificial flavors, soybean oil, natural flavors, almond extract","['Soy', 'Tree Nuts', 'General Allergen']"
+"barley malt, soybean oil, palm oil, natural flavors","['Gluten', 'Soy']"
+"lecithin, milk solids, anchovy paste","['Milk', 'Fish']"
+"whey protein isolate, soybean oil, artificial sweeteners, peanut oil","['Peanuts', 'Milk', 'Soy']"
+"egg whites, hydrolyzed soy protein, lecithin, natural flavors, walnut pieces","['Eggs', 'Soy', 'Tree Nuts']"
+"high-fructose corn syrup, fish sauce, walnut pieces, modified corn starch, peanut flour","['Peanuts', 'Fish', 'Tree Nuts']"
+"palm oil, walnut pieces, modified corn starch",['Tree Nuts']
+"modified corn starch, walnut pieces, artificial sweeteners",['Tree Nuts']
+"modified corn starch, soybean oil, peanut oil","['Peanuts', 'Soy']"
+"soy lecithin, pollock, whole eggs, high-fructose corn syrup","['Fish', 'Soy', 'Eggs']"
+"walnut pieces, modified corn starch",['Tree Nuts']
+"lecithin, casein, palm oil",['Milk']
+"natural flavors, peanut flour, palm oil, calcium caseinate","['Peanuts', 'Milk']"
+"artificial sweeteners, crab flavoring, hydrolyzed soy protein","['Shellfish', 'Soy']"
+"casein, ground peanuts, lecithin, natural flavors","['Peanuts', 'Milk']"
+"natural flavors, natural flavors, dried egg yolk, modified corn starch, soy lecithin","['Soy', 'Eggs', 'General Allergen']"
+"modified corn starch, natural flavors, egg whites",['Eggs']
+"almond extract, modified corn starch",['Tree Nuts']
+"pollock, lecithin, egg whites","['Fish', 'Eggs']"
+"milk solids, modified corn starch, palm oil",['Milk']
+"hydrolyzed soy protein, lecithin",['Soy']
+"natural flavors, hazelnut spread, lobster meat, peanut flour","['Peanuts', 'Shellfish', 'Tree Nuts']"
+"dried egg yolk, lobster meat, artificial sweeteners, pollock","['Shellfish', 'Fish', 'Eggs']"
+"lecithin, anchovy paste, almond extract","['Fish', 'Tree Nuts']"
+"walnut pieces, natural flavors, peanut flour, whey protein isolate, artificial sweeteners","['Peanuts', 'Milk', 'Tree Nuts']"
+"natural flavors, palm oil, barley malt",['Gluten']
+"pollock, artificial sweeteners, walnut pieces, barley malt","['Gluten', 'Fish', 'Tree Nuts']"
+"modified corn starch, lecithin, ground peanuts",['Peanuts']
+"almond extract, shrimp extract, natural flavors","['Shellfish', 'Tree Nuts']"
+"natural flavors, peanut oil, lecithin",['Peanuts']
+"artificial sweeteners, hydrolyzed soy protein, calcium caseinate","['Milk', 'Soy']"
+"shrimp extract, modified corn starch",['Shellfish']
+"egg whites, natural flavors, artificial sweeteners","['Eggs', 'General Allergen']"
+"peanut oil, barley malt, lecithin, high-fructose corn syrup, dried egg yolk","['Peanuts', 'Gluten', 'Eggs']"
+"calcium caseinate, modified corn starch, palm oil",['Milk']
+"modified corn starch, fish sauce, shrimp extract, soy lecithin","['Shellfish', 'Fish', 'Soy']"
+"peanut oil, artificial sweeteners, modified corn starch",['Peanuts']
+"ground peanuts, whey protein isolate, natural flavors, almond extract","['Peanuts', 'Milk', 'Tree Nuts']"
+"soy lecithin, palm oil, lecithin",['Soy']
+"high-fructose corn syrup, milk solids",['Milk']
+"artificial sweeteners, peanut flour",['Peanuts']
+"lecithin, peanut oil, palm oil, caramel coloring, crab flavoring","['Peanuts', 'Shellfish', 'General Allergen']"
+"palm oil, artificial sweeteners, walnut pieces",['Tree Nuts']
+"peanut oil, artificial sweeteners",['Peanuts']
+"lecithin, rye bread",['Gluten']
+"wheat flour, modified corn starch",['Gluten']
+"lobster meat, whole eggs, hydrolyzed soy protein, natural flavors, lecithin","['Shellfish', 'Soy', 'Eggs']"
+"artificial sweeteners, hazelnut spread, palm oil",['Tree Nuts']
+"almond extract, anchovy paste, lecithin, casein","['Milk', 'Fish', 'Tree Nuts']"
+"artificial sweeteners, artificial flavors, egg whites, soy lecithin","['Soy', 'Eggs', 'General Allergen']"
+"natural flavors, high-fructose corn syrup, dried egg yolk, barley malt","['Gluten', 'Eggs']"
+"caramel coloring, modified corn starch, artificial sweeteners",['General Allergen']
+"fish sauce, soy lecithin, artificial sweeteners, high-fructose corn syrup","['Fish', 'Soy']"
+"soybean oil, crab flavoring, whole eggs, artificial sweeteners, natural flavors","['Shellfish', 'Soy', 'Eggs']"
+"egg whites, lecithin",['Eggs']
+"natural flavors, rye bread",['Gluten']
+"shrimp extract, high-fructose corn syrup, peanut oil, rye bread, modified corn starch","['Peanuts', 'Gluten', 'Shellfish']"
+"caramel coloring, palm oil",['General Allergen']
+"whey protein isolate, pollock, hydrolyzed soy protein, high-fructose corn syrup","['Milk', 'Fish', 'Soy']"
+"artificial flavors, artificial sweeteners, whole eggs, modified corn starch","['Eggs', 'General Allergen']"
+"high-fructose corn syrup, calcium caseinate, modified corn starch, dried egg yolk, wheat flour","['Milk', 'Eggs', 'Gluten']"
+"almond extract, high-fructose corn syrup, artificial sweeteners",['Tree Nuts']
+"lobster meat, fish sauce, walnut pieces, palm oil","['Shellfish', 'Fish', 'Tree Nuts']"
+"natural flavors, artificial sweeteners, palm oil, rye bread","['Gluten', 'General Allergen']"
+"modified corn starch, palm oil, egg whites, walnut pieces, peanut flour","['Peanuts', 'Eggs', 'Tree Nuts']"
+"shrimp extract, casein, modified corn starch, natural flavors","['Shellfish', 'Milk']"
+"barley malt, anchovy paste, hydrolyzed soy protein, modified corn starch","['Gluten', 'Fish', 'Soy']"
+"modified corn starch, lecithin, walnut pieces, hydrolyzed soy protein, shrimp extract","['Shellfish', 'Soy', 'Tree Nuts']"
+"lecithin, lobster meat, barley malt","['Shellfish', 'Gluten']"
+"shrimp extract, modified corn starch",['Shellfish']
+"rye bread, artificial sweeteners, natural flavors, calcium caseinate, caramel coloring","['Milk', 'Gluten', 'General Allergen']"
+"natural flavors, milk solids, hydrolyzed soy protein, lecithin","['Milk', 'Soy']"
+"palm oil, lobster meat, high-fructose corn syrup, ground peanuts","['Peanuts', 'Shellfish']"
+"artificial sweeteners, ground peanuts, hydrolyzed soy protein","['Peanuts', 'Soy']"
+"walnut pieces, peanut oil, artificial sweeteners, high-fructose corn syrup","['Peanuts', 'Tree Nuts']"
+"hazelnut spread, artificial sweeteners, natural flavors, lecithin","['Tree Nuts', 'General Allergen']"
+"artificial sweeteners, shrimp extract",['Shellfish']
+"high-fructose corn syrup, almond extract",['Tree Nuts']
+"peanut oil, natural flavors, artificial sweeteners, hydrolyzed soy protein","['Peanuts', 'Soy']"
+"anchovy paste, natural flavors, dried egg yolk, caramel coloring","['Fish', 'Eggs', 'General Allergen']"
+"soybean oil, lecithin, whole eggs, almond extract","['Eggs', 'Soy', 'Tree Nuts']"
+"lecithin, modified corn starch, casein",['Milk']
+"caramel coloring, high-fructose corn syrup, modified corn starch, peanut oil","['Peanuts', 'General Allergen']"
+"modified corn starch, anchovy paste, natural flavors, casein, crab flavoring","['Shellfish', 'Milk', 'Fish']"
+"modified corn starch, dried egg yolk, artificial flavors, high-fructose corn syrup, almond extract","['Tree Nuts', 'Eggs', 'General Allergen']"
+"artificial sweeteners, pollock, dried egg yolk, milk solids","['Milk', 'Fish', 'Eggs']"
+"artificial sweeteners, milk solids, hazelnut spread","['Milk', 'Tree Nuts']"
+"pollock, natural flavors, soy lecithin","['Fish', 'Soy']"
+"artificial sweeteners, lobster meat, egg whites, peanut oil","['Peanuts', 'Shellfish', 'Eggs']"
+"modified corn starch, peanut oil",['Peanuts']
+"lecithin, artificial flavors, palm oil, pollock","['Fish', 'General Allergen']"
+"artificial sweeteners, xanthan gum, egg whites","['Eggs', 'General Allergen']"
+"lobster meat, walnut pieces, palm oil, artificial sweeteners, xanthan gum","['Shellfish', 'Tree Nuts', 'General Allergen']"
+"hydrolyzed soy protein, high-fructose corn syrup, egg whites","['Soy', 'Eggs']"
+"natural flavors, ground peanuts, high-fructose corn syrup",['Peanuts']
+"natural flavors, ground peanuts, hazelnut spread, soybean oil, palm oil","['Peanuts', 'Soy', 'Tree Nuts']"
+"hydrolyzed soy protein, high-fructose corn syrup, anchovy paste","['Fish', 'Soy']"
+"artificial sweeteners, casein, wheat flour","['Gluten', 'Milk']"
+"crab flavoring, lecithin",['Shellfish']
+"barley malt, palm oil, peanut flour, fish sauce","['Peanuts', 'Gluten', 'Fish']"
+"milk solids, high-fructose corn syrup, artificial sweeteners",['Milk']
+"shrimp extract, natural flavors, modified corn starch",['Shellfish']
+"wheat flour, lecithin, whole eggs","['Gluten', 'Eggs']"
+"modified corn starch, pollock, soybean oil, whole eggs","['Fish', 'Soy', 'Eggs']"
+"natural flavors, walnut pieces",['Tree Nuts']
+"high-fructose corn syrup, walnut pieces, hydrolyzed soy protein, modified corn starch","['Soy', 'Tree Nuts']"
+"high-fructose corn syrup, dried egg yolk, artificial flavors","['Eggs', 'General Allergen']"
+"fish sauce, modified corn starch, egg whites","['Fish', 'Eggs']"
+"whey protein isolate, lecithin, palm oil, soy lecithin","['Milk', 'Soy']"
+"artificial sweeteners, casein, shrimp extract, peanut oil, high-fructose corn syrup","['Shellfish', 'Milk', 'Peanuts']"
+"walnut pieces, modified corn starch",['Tree Nuts']
+"casein, natural flavors",['Milk']
+"modified corn starch, anchovy paste, xanthan gum, natural flavors","['Fish', 'General Allergen']"
+"walnut pieces, artificial sweeteners",['Tree Nuts']
+"palm oil, calcium caseinate, rye bread, high-fructose corn syrup","['Milk', 'Gluten']"
+"natural flavors, soy lecithin, dried egg yolk","['Soy', 'Eggs']"
+"shrimp extract, modified corn starch, high-fructose corn syrup, hazelnut spread","['Shellfish', 'Tree Nuts']"
+"pollock, peanut oil, palm oil","['Peanuts', 'Fish']"
+"palm oil, soy lecithin, high-fructose corn syrup, rye bread","['Gluten', 'Soy']"
+"modified corn starch, lecithin, dried egg yolk",['Eggs']
+"peanut flour, natural flavors, palm oil",['Peanuts']
+"ground peanuts, crab flavoring, natural flavors, artificial sweeteners, milk solids","['Shellfish', 'Milk', 'Peanuts']"
+"artificial flavors, palm oil, high-fructose corn syrup",['General Allergen']
+"anchovy paste, ground peanuts, artificial sweeteners, high-fructose corn syrup, crab flavoring","['Shellfish', 'Fish', 'Peanuts']"
+"lecithin, egg whites, modified corn starch",['Eggs']
+"ground peanuts, palm oil",['Peanuts']
+"soybean oil, egg whites, palm oil","['Soy', 'Eggs']"
+"lecithin, hydrolyzed soy protein",['Soy']
+"modified corn starch, walnut pieces",['Tree Nuts']
+"palm oil, soybean oil, hazelnut spread","['Soy', 'Tree Nuts']"
+"modified corn starch, natural flavors, rye bread",['Gluten']
+"palm oil, whey protein isolate, peanut oil, soy lecithin","['Peanuts', 'Milk', 'Soy']"
+"peanut flour, high-fructose corn syrup",['Peanuts']
+"shrimp extract, natural flavors, lecithin",['Shellfish']
+"artificial sweeteners, soy lecithin",['Soy']
+"natural flavors, natural flavors, casein, lecithin, shrimp extract","['Shellfish', 'Milk', 'General Allergen']"
+"lecithin, pollock, high-fructose corn syrup, peanut flour, hydrolyzed soy protein","['Peanuts', 'Fish', 'Soy']"
+"dried egg yolk, high-fructose corn syrup, crab flavoring, artificial sweeteners, wheat flour","['Shellfish', 'Gluten', 'Eggs']"
+"soy lecithin, barley malt, natural flavors","['Gluten', 'Soy']"
+"peanut flour, modified corn starch",['Peanuts']
+"anchovy paste, natural flavors",['Fish']
+"palm oil, wheat flour, whole eggs, shrimp extract","['Shellfish', 'Gluten', 'Eggs']"
+"caramel coloring, artificial sweeteners",['General Allergen']
+"natural flavors, shrimp extract, peanut flour, palm oil","['Shellfish', 'Peanuts']"
+"casein, high-fructose corn syrup, peanut oil, artificial sweeteners, shrimp extract","['Shellfish', 'Milk', 'Peanuts']"
+"wheat flour, fish sauce, peanut flour, high-fructose corn syrup, natural flavors","['Peanuts', 'Gluten', 'Fish']"
+"artificial sweeteners, walnut pieces, crab flavoring, lecithin","['Shellfish', 'Tree Nuts']"
+"modified corn starch, egg whites, lecithin",['Eggs']
+"ground peanuts, high-fructose corn syrup, rye bread, crab flavoring","['Shellfish', 'Gluten', 'Peanuts']"
+"crab flavoring, high-fructose corn syrup",['Shellfish']
+"natural flavors, high-fructose corn syrup, natural flavors",['General Allergen']
+"crab flavoring, artificial sweeteners, high-fructose corn syrup",['Shellfish']
+"casein, dried egg yolk, artificial sweeteners","['Milk', 'Eggs']"
+"natural flavors, crab flavoring, fish sauce, lecithin","['Shellfish', 'Fish']"
+"high-fructose corn syrup, crab flavoring, rye bread, walnut pieces","['Shellfish', 'Gluten', 'Tree Nuts']"
+"xanthan gum, palm oil, lobster meat, high-fructose corn syrup","['Shellfish', 'General Allergen']"
+"pollock, palm oil, natural flavors",['Fish']
+"barley malt, almond extract, modified corn starch","['Gluten', 'Tree Nuts']"
+"lecithin, fish sauce, barley malt, palm oil, casein","['Milk', 'Fish', 'Gluten']"
+"egg whites, high-fructose corn syrup, artificial sweeteners, crab flavoring, barley malt","['Shellfish', 'Gluten', 'Eggs']"
+"hydrolyzed soy protein, shrimp extract, walnut pieces, artificial sweeteners, lecithin","['Shellfish', 'Soy', 'Tree Nuts']"
+"artificial sweeteners, almond extract, modified corn starch, casein, natural flavors","['Milk', 'Tree Nuts', 'General Allergen']"
+"modified corn starch, dried egg yolk",['Eggs']
+"modified corn starch, casein",['Milk']
+"high-fructose corn syrup, pollock",['Fish']
+"xanthan gum, ground peanuts, natural flavors, shrimp extract","['Shellfish', 'Peanuts', 'General Allergen']"
+"artificial sweeteners, lecithin, caramel coloring",['General Allergen']
+"lecithin, natural flavors, whole eggs",['Eggs']
+"ground peanuts, artificial sweeteners, almond extract","['Peanuts', 'Tree Nuts']"
+"milk solids, soybean oil, crab flavoring, lecithin, high-fructose corn syrup","['Shellfish', 'Milk', 'Soy']"
+"pollock, artificial sweeteners, natural flavors, xanthan gum","['Fish', 'General Allergen']"
+"lecithin, high-fructose corn syrup, whey protein isolate",['Milk']
+"whole eggs, almond extract, lecithin, lobster meat","['Shellfish', 'Eggs', 'Tree Nuts']"
+"high-fructose corn syrup, modified corn starch, crab flavoring, ground peanuts","['Shellfish', 'Peanuts']"
+"natural flavors, soybean oil, caramel coloring","['Soy', 'General Allergen']"
+"egg whites, lecithin",['Eggs']
+"artificial flavors, anchovy paste, lecithin","['Fish', 'General Allergen']"
+"pollock, natural flavors, hazelnut spread, calcium caseinate","['Milk', 'Fish', 'Tree Nuts']"
+"almond extract, ground peanuts, palm oil, anchovy paste","['Peanuts', 'Fish', 'Tree Nuts']"
+"modified corn starch, artificial sweeteners, anchovy paste",['Fish']
+"barley malt, high-fructose corn syrup",['Gluten']
+"lecithin, high-fructose corn syrup, peanut oil",['Peanuts']
+"hydrolyzed soy protein, hazelnut spread, lecithin, barley malt","['Gluten', 'Soy', 'Tree Nuts']"
+"calcium caseinate, almond extract, palm oil, fish sauce","['Milk', 'Fish', 'Tree Nuts']"
+"palm oil, peanut flour, almond extract, natural flavors, anchovy paste","['Peanuts', 'Fish', 'Tree Nuts']"
+"anchovy paste, palm oil, artificial flavors, peanut flour, modified corn starch","['Peanuts', 'Fish', 'General Allergen']"
+"rye bread, artificial sweeteners, milk solids, caramel coloring","['Milk', 'Gluten', 'General Allergen']"
+"peanut oil, lecithin, modified corn starch, fish sauce, shrimp extract","['Peanuts', 'Fish', 'Shellfish']"
+"palm oil, crab flavoring, artificial flavors, high-fructose corn syrup, peanut oil","['Shellfish', 'Peanuts', 'General Allergen']"
+"natural flavors, high-fructose corn syrup, whey protein isolate, crab flavoring","['Shellfish', 'Milk', 'General Allergen']"
+"palm oil, hydrolyzed soy protein",['Soy']
+"pollock, artificial sweeteners, natural flavors","['Fish', 'General Allergen']"
+"soy lecithin, modified corn starch, lecithin",['Soy']
+"peanut oil, modified corn starch",['Peanuts']
+"hazelnut spread, palm oil",['Tree Nuts']
+"soy lecithin, natural flavors, lobster meat, caramel coloring","['Shellfish', 'Soy', 'General Allergen']"
+"palm oil, natural flavors, natural flavors",['General Allergen']
+"high-fructose corn syrup, barley malt",['Gluten']
+"peanut flour, hydrolyzed soy protein, modified corn starch, anchovy paste","['Peanuts', 'Fish', 'Soy']"
+"artificial sweeteners, whey protein isolate, anchovy paste","['Milk', 'Fish']"
+"whole eggs, barley malt, artificial sweeteners, modified corn starch","['Gluten', 'Eggs']"
+"artificial sweeteners, ground peanuts, modified corn starch, barley malt, casein","['Peanuts', 'Milk', 'Gluten']"
+"artificial sweeteners, caramel coloring, dried egg yolk","['Eggs', 'General Allergen']"
+"high-fructose corn syrup, natural flavors, calcium caseinate",['Milk']
+"caramel coloring, shrimp extract, artificial sweeteners","['Shellfish', 'General Allergen']"
+"barley malt, lecithin, natural flavors, peanut flour","['Peanuts', 'Gluten']"
+"milk solids, artificial sweeteners",['Milk']
+"crab flavoring, artificial sweeteners, lecithin, hydrolyzed soy protein, artificial flavors","['Shellfish', 'Soy', 'General Allergen']"
+"artificial sweeteners, palm oil, whole eggs, barley malt","['Gluten', 'Eggs']"
+"milk solids, hydrolyzed soy protein, lecithin, walnut pieces","['Milk', 'Soy', 'Tree Nuts']"
+"casein, crab flavoring, modified corn starch, rye bread, lecithin","['Shellfish', 'Gluten', 'Milk']"
+"lecithin, whole eggs, modified corn starch",['Eggs']
+"soybean oil, high-fructose corn syrup, pollock","['Fish', 'Soy']"
+"soybean oil, lecithin, walnut pieces","['Soy', 'Tree Nuts']"
+"soy lecithin, ground peanuts, natural flavors, artificial sweeteners","['Peanuts', 'Soy']"
+"modified corn starch, artificial sweeteners, milk solids",['Milk']
+"high-fructose corn syrup, wheat flour, hazelnut spread","['Gluten', 'Tree Nuts']"
+"lecithin, caramel coloring, lobster meat, palm oil, wheat flour","['Shellfish', 'Gluten', 'General Allergen']"
+"artificial sweeteners, high-fructose corn syrup, calcium caseinate",['Milk']
+"lobster meat, soybean oil, natural flavors, pollock","['Shellfish', 'Fish', 'Soy']"
+"casein, palm oil, soy lecithin, lecithin, caramel coloring","['Milk', 'Soy', 'General Allergen']"
+"artificial sweeteners, lecithin, wheat flour",['Gluten']
+"palm oil, whole eggs, calcium caseinate","['Milk', 'Eggs']"
+"calcium caseinate, artificial sweeteners, artificial flavors","['Milk', 'General Allergen']"
+"modified corn starch, xanthan gum, high-fructose corn syrup",['General Allergen']
+"palm oil, lecithin, rye bread",['Gluten']
+"artificial flavors, natural flavors, lecithin",['General Allergen']
+"hydrolyzed soy protein, almond extract, lecithin, casein","['Milk', 'Soy', 'Tree Nuts']"
+"wheat flour, high-fructose corn syrup, fish sauce, whole eggs, modified corn starch","['Gluten', 'Fish', 'Eggs']"
+"pollock, natural flavors",['Fish']
+"high-fructose corn syrup, shrimp extract, calcium caseinate, lecithin, pollock","['Shellfish', 'Milk', 'Fish']"
+"artificial sweeteners, peanut flour, modified corn starch, rye bread","['Peanuts', 'Gluten']"
+"high-fructose corn syrup, almond extract, palm oil, barley malt","['Gluten', 'Tree Nuts']"
+"crab flavoring, barley malt, artificial sweeteners, whey protein isolate","['Shellfish', 'Gluten', 'Milk']"
+"barley malt, casein, artificial sweeteners, lobster meat, lecithin","['Shellfish', 'Milk', 'Gluten']"
+"modified corn starch, barley malt",['Gluten']
+"xanthan gum, peanut flour, natural flavors","['Peanuts', 'General Allergen']"
+"artificial sweeteners, lecithin, calcium caseinate, walnut pieces","['Milk', 'Tree Nuts']"
+"soy lecithin, rye bread, fish sauce, modified corn starch","['Gluten', 'Fish', 'Soy']"
+"almond extract, egg whites, fish sauce, natural flavors","['Fish', 'Eggs', 'Tree Nuts']"
+"xanthan gum, modified corn starch",['General Allergen']
+"pollock, artificial sweeteners",['Fish']
+"soy lecithin, egg whites, walnut pieces, lecithin","['Eggs', 'Soy', 'Tree Nuts']"
+"shrimp extract, natural flavors, modified corn starch, hazelnut spread, xanthan gum","['Shellfish', 'Tree Nuts', 'General Allergen']"
+"lecithin, pollock, hazelnut spread, palm oil","['Fish', 'Tree Nuts']"
+"soy lecithin, modified corn starch, almond extract, artificial sweeteners, pollock","['Fish', 'Soy', 'Tree Nuts']"
+"artificial sweeteners, natural flavors, lobster meat",['Shellfish']
+"fish sauce, modified corn starch, wheat flour, xanthan gum","['Gluten', 'Fish', 'General Allergen']"
+"egg whites, high-fructose corn syrup, anchovy paste, rye bread","['Gluten', 'Fish', 'Eggs']"
+"modified corn starch, artificial sweeteners, dried egg yolk",['Eggs']
+"artificial sweeteners, hydrolyzed soy protein",['Soy']
+"high-fructose corn syrup, anchovy paste, lecithin",['Fish']
+"walnut pieces, egg whites, artificial sweeteners, natural flavors","['Eggs', 'Tree Nuts']"
+"soy lecithin, whey protein isolate, natural flavors","['Milk', 'Soy']"
+"natural flavors, artificial sweeteners, hydrolyzed soy protein, calcium caseinate","['Milk', 'Soy']"
+"peanut flour, palm oil",['Peanuts']
+"artificial flavors, pollock, lecithin, artificial sweeteners, egg whites","['Fish', 'Eggs', 'General Allergen']"
+"modified corn starch, palm oil, peanut oil",['Peanuts']
+"xanthan gum, dried egg yolk, lecithin, whey protein isolate, palm oil","['Milk', 'Eggs', 'General Allergen']"
+"high-fructose corn syrup, artificial sweeteners, whey protein isolate",['Milk']
+"palm oil, xanthan gum, modified corn starch, calcium caseinate, peanut flour","['Peanuts', 'Milk', 'General Allergen']"
+"lobster meat, natural flavors, fish sauce","['Shellfish', 'Fish']"
+"casein, palm oil, egg whites","['Milk', 'Eggs']"
+"lecithin, soy lecithin",['Soy']
+"hazelnut spread, peanut oil, artificial sweeteners","['Peanuts', 'Tree Nuts']"
+"hazelnut spread, crab flavoring, natural flavors","['Shellfish', 'Tree Nuts']"
+"palm oil, egg whites",['Eggs']
+"whole eggs, soybean oil, natural flavors","['Soy', 'Eggs']"
+"palm oil, high-fructose corn syrup, soy lecithin, egg whites","['Soy', 'Eggs']"
+"almond extract, hydrolyzed soy protein, palm oil, shrimp extract, high-fructose corn syrup","['Shellfish', 'Soy', 'Tree Nuts']"
+"modified corn starch, soy lecithin, anchovy paste, caramel coloring","['Fish', 'Soy', 'General Allergen']"
+"lobster meat, soy lecithin, high-fructose corn syrup, peanut oil","['Peanuts', 'Shellfish', 'Soy']"
+"natural flavors, artificial sweeteners",['General Allergen']
+"modified corn starch, crab flavoring, walnut pieces","['Shellfish', 'Tree Nuts']"
+"lecithin, modified corn starch, hydrolyzed soy protein, crab flavoring","['Shellfish', 'Soy']"
+"crab flavoring, palm oil, almond extract","['Shellfish', 'Tree Nuts']"
+"almond extract, milk solids, high-fructose corn syrup, barley malt","['Gluten', 'Tree Nuts', 'Milk']"
+"anchovy paste, modified corn starch, soybean oil","['Fish', 'Soy']"
+"palm oil, whole eggs, hazelnut spread, pollock","['Fish', 'Tree Nuts', 'Eggs']"
+"barley malt, casein, palm oil, natural flavors","['Gluten', 'Milk']"
+"high-fructose corn syrup, almond extract, crab flavoring, xanthan gum, artificial sweeteners","['Shellfish', 'Tree Nuts', 'General Allergen']"
+"natural flavors, soy lecithin, wheat flour","['Gluten', 'Soy']"
+"walnut pieces, whole eggs, modified corn starch, natural flavors","['Eggs', 'Tree Nuts']"
+"dried egg yolk, palm oil, fish sauce, hydrolyzed soy protein","['Fish', 'Soy', 'Eggs']"
+"lecithin, palm oil, hazelnut spread",['Tree Nuts']
+"caramel coloring, peanut oil, high-fructose corn syrup, calcium caseinate, natural flavors","['Peanuts', 'Milk', 'General Allergen']"
+"palm oil, fish sauce, xanthan gum, peanut oil","['Peanuts', 'Fish', 'General Allergen']"
+"modified corn starch, artificial sweeteners, ground peanuts",['Peanuts']
+"xanthan gum, lecithin",['General Allergen']
+"shrimp extract, walnut pieces, natural flavors, peanut flour","['Shellfish', 'Tree Nuts', 'Peanuts']"
