@@ -1,3 +1,5 @@
 venv
-env
+/pack
+/__pycache__
+pack
 .env
