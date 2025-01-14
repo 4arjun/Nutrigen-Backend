@@ -18,11 +18,13 @@ from django.contrib import admin
 from django.urls import include, path
 from django.urls import path
 
+from allergens.views import upload_base64
 
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("allergens/", include("allergens.urls")),
+    path("upload-base64/",upload_base64,name="upload_base64")
 ]
 

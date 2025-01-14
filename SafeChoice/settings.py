@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-(yy=g*hz&!^a)vh87p#81sph*=x%=8#=!b--v-*3tym1)wr)b%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['nutrigen.myprojects.studio']
+ALLOWED_HOSTS = ['*']
 
 CORS_ALLOW_ALL_ORIGINS = True
 
