@@ -20,6 +20,8 @@ from dotenv import load_dotenv
 from PIL import Image
 from io import BytesIO
 import base64
+import json
+
 load_dotenv()
 
 
@@ -95,46 +97,41 @@ def crop_image(file_path):
 @csrf_exempt
 def upload_base64(request):
     try:
-        # Get the Base64 encoded image from the request
-        image_data = request.json.get("image")
+        if request.method != 'POST':
+            return JsonResponse({"error": "Invalid HTTP method. Use POST."}, status=405)
+
+        # Parse JSON data from request body
+        try:
+            data = json.loads(request.body)
+        except json.JSONDecodeError:
+            return JsonResponse({"error": "Invalid JSON format"}, status=400)
+
+        # Get the Base64 encoded image
+        image_data = data.get("image")
         if not image_data:
             return JsonResponse({"error": "No image data provided"}, status=400)
 
-
         # Decode the Base64 string
         image_bytes = base64.b64decode(image_data)
+        if not os.path.exists(UPLOAD_DIRS):
+            os.makedirs(UPLOAD_DIRS)  # Create upload directory if it doesn't exist
         file_path = os.path.join(UPLOAD_DIRS, "uploaded_image.jpg")
 
         # Save the decoded image
         with open(file_path, "wb") as image_file:
             image_file.write(image_bytes)
-        
+
         # Crop the image
         cropped_file_path = crop_image(file_path)
-        
+
         # Read the barcode from the cropped image
         barcode_info = BarcodeReader(cropped_file_path)
-        
+
         if barcode_info == "error:barcode not detected":
             return JsonResponse({"status": "error", "message": "Barcode not detected"}, status=400)
-        
-        # Get ingredients from the barcode
-        ingredients,brand,name,image,nutrients,Nutri = mock_get_ingredients(barcode_info)
-        
 
-      
-        result = {
-            "status": "success",
-            "code": barcode_info,
-            "brandName":brand,
-            "name":name,
-            "ingredients": ingredients,
-            #"openai_response": generated_text,
-            "image":image,
-            "nutrients":nutrients,
-            "Nutri":Nutri,
-            "score":""
-        }
+        # Mock function to get ingredients from barcode (replace with actual implementation)
+        ingredients, brand, name, image, nutrients, Nutri = mock_get_ingredients(barcode_info)
 
         '''if not result["ingredients"]:  # This checks if the list is empty
             print("OPEN AI RESULT")
