@@ -100,24 +100,22 @@ def upload_base64(request):
         if request.method != 'POST':
             return JsonResponse({"error": "Invalid HTTP method. Use POST."}, status=405)
 
-        # Parse JSON data from request body
-        try:
-            data = json.loads(request.body)
-        except json.JSONDecodeError:
-            return JsonResponse({"error": "Invalid JSON format"}, status=400)
-
-        # Get the Base64 encoded image
+        # Parse JSON data
+        data = json.loads(request.body)
         image_data = data.get("image")
         if not image_data:
             return JsonResponse({"error": "No image data provided"}, status=400)
 
-        # Decode the Base64 string
-        image_bytes = base64.b64decode(image_data)
-        if not os.path.exists(UPLOAD_DIRS):
-            os.makedirs(UPLOAD_DIRS)  # Create upload directory if it doesn't exist
-        file_path = os.path.join(UPLOAD_DIRS, "uploaded_image.jpg")
+        # Decode Base64 string
+        try:
+            image_bytes = base64.b64decode(image_data)
+        except base64.binascii.Error:
+            return JsonResponse({"error": "Invalid Base64 data"}, status=400)
 
         # Save the decoded image
+        if not os.path.exists(UPLOAD_DIRS):
+            os.makedirs(UPLOAD_DIRS)
+        file_path = os.path.join(UPLOAD_DIRS, "uploaded_image.jpg")
         with open(file_path, "wb") as image_file:
             image_file.write(image_bytes)
 
@@ -126,12 +124,28 @@ def upload_base64(request):
 
         # Read the barcode from the cropped image
         barcode_info = BarcodeReader(cropped_file_path)
-
         if barcode_info == "error:barcode not detected":
             return JsonResponse({"status": "error", "message": "Barcode not detected"}, status=400)
 
-        # Mock function to get ingredients from barcode (replace with actual implementation)
+        # Get ingredients from the barcode
         ingredients, brand, name, image, nutrients, Nutri = mock_get_ingredients(barcode_info)
+
+    
+        
+
+      
+        result = {
+            "status": "success",
+            "code": barcode_info,
+            "brandName":brand,
+            "name":name,
+            "ingredients": ingredients,
+            #"openai_response": generated_text,
+            "image":image,
+            "nutrients":nutrients,
+            "Nutri":Nutri,
+            "score":""
+        }
 
         '''if not result["ingredients"]:  # This checks if the list is empty
             print("OPEN AI RESULT")
