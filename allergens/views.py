@@ -20,13 +20,15 @@ from dotenv import load_dotenv
 from PIL import Image
 from io import BytesIO
 import base64
+import json
+
 load_dotenv()
 
 
 
 import cv2
 from pyzbar.pyzbar import decode
-import re
+
 def BarcodeReader(image_path):
     # Read the image in numpy array using cv2
     img = cv2.imread(image_path)
@@ -92,34 +94,43 @@ def crop_image(file_path):
         cropped_img.save(cropped_file_path)
 
     return cropped_file_path
-
-def upload_base64():
+@csrf_exempt
+def upload_base64(request):
     try:
-        # Get the Base64 encoded image from the request
-        image_data = request.json.get("image")
+        if request.method != 'POST':
+            return JsonResponse({"error": "Invalid HTTP method. Use POST."}, status=405)
+
+        # Parse JSON data
+        data = json.loads(request.body)
+        image_data = data.get("image")
         if not image_data:
             return JsonResponse({"error": "No image data provided"}, status=400)
 
-
-        # Decode the Base64 string
-        image_bytes = base64.b64decode(image_data)
-        file_path = os.path.join(UPLOAD_DIRS, "uploaded_image.jpg")
+        # Decode Base64 string
+        try:
+            image_bytes = base64.b64decode(image_data)
+        except base64.binascii.Error:
+            return JsonResponse({"error": "Invalid Base64 data"}, status=400)
 
         # Save the decoded image
+        if not os.path.exists(UPLOAD_DIRS):
+            os.makedirs(UPLOAD_DIRS)
+        file_path = os.path.join(UPLOAD_DIRS, "uploaded_image.jpg")
         with open(file_path, "wb") as image_file:
             image_file.write(image_bytes)
-        
+
         # Crop the image
         cropped_file_path = crop_image(file_path)
-        
+
         # Read the barcode from the cropped image
         barcode_info = BarcodeReader(cropped_file_path)
-        
         if barcode_info == "error:barcode not detected":
             return JsonResponse({"status": "error", "message": "Barcode not detected"}, status=400)
-        
+
         # Get ingredients from the barcode
-        ingredients,brand,name,image,nutrients,Nutri = mock_get_ingredients(barcode_info)
+        ingredients, brand, name, image, nutrients, Nutri = mock_get_ingredients(barcode_info)
+
+    
         
 
       
