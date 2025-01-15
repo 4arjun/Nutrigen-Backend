@@ -130,10 +130,10 @@ def upload_base64(request):
         # Get ingredients from the barcode
         ingredients, brand, name, image, nutrients, Nutri = mock_get_ingredients(barcode_info)
 
-    
-        
 
-      
+        user_allergens = ["milk", "peanuts", "soy"]
+        allergen_detection_result = detect_allergens_from_ingredients(user_allergens, ingredients)
+
         result = {
             "status": "success",
             "code": barcode_info,
@@ -144,7 +144,9 @@ def upload_base64(request):
             "image":image,
             "nutrients":nutrients,
             "Nutri":Nutri,
-            "score":""
+            "score":"",
+            "allergens_detected": allergen_detection_result.get("detected_allergens", []),
+            "safe": allergen_detection_result.get("safe", True),
         }
 
         '''if not result["ingredients"]:  # This checks if the list is empty
@@ -291,45 +293,41 @@ def generate_bert_embedding(text):
         outputs = bert_model(**inputs)
     return outputs.last_hidden_state.mean(dim=1).squeeze().numpy()
 
-@csrf_exempt
-def detect_allergens(request):
-    if request.method == "POST":
-        try:
-            data = json.loads(request.body)
-            user_allergens = data.get("user_allergens", [])
-            user_allergens = [normalize_allergen(a) for a in user_allergens]
-            ingredients = data.get("ingredients", [])
+def detect_allergens_from_ingredients(user_allergens, ingredients):
+    """
+    Wrapper for the detect_allergens logic to process allergens and ingredients.
+    """
+    try:
+        # Normalize and process user allergens
+        user_allergens = [normalize_allergen(a) for a in user_allergens]
 
-            ingredient_text = ", ".join(ingredients)
-            X_tfidf = vectorizer.transform([ingredient_text])
-            X_bert = np.array([generate_bert_embedding(ingredient_text)])
-            X_combined = hstack([X_tfidf, X_bert])
+        ingredient_text = ", ".join(ingredients)
+        X_tfidf = vectorizer.transform([ingredient_text])
+        X_bert = np.array([generate_bert_embedding(ingredient_text)])
+        X_combined = hstack([X_tfidf, X_bert])
 
-            user_allergen_embeddings = [generate_bert_embedding(allergen) for allergen in user_allergens]
+        user_allergen_embeddings = [generate_bert_embedding(allergen) for allergen in user_allergens]
 
-            predicted_allergens_binary = model.predict(X_combined)
-            predicted_allergens = [
-                normalize_allergen(a) for a in mlb.inverse_transform(predicted_allergens_binary)[0]
-            ]
+        predicted_allergens_binary = model.predict(X_combined)
+        predicted_allergens = [
+            normalize_allergen(a) for a in mlb.inverse_transform(predicted_allergens_binary)[0]
+        ]
 
-            detected_allergens = set()
-            for allergen, allergen_embedding in zip(user_allergens, user_allergen_embeddings):
-                similarity = cosine_similarity(X_bert, [allergen_embedding])[0][0]
-                if similarity > 0.8:
-                    detected_allergens.add(allergen)
+        detected_allergens = set()
+        for allergen, allergen_embedding in zip(user_allergens, user_allergen_embeddings):
+            similarity = cosine_similarity(X_bert, [allergen_embedding])[0][0]
+            if similarity > 0.8:
+                detected_allergens.add(allergen)
 
-                for predicted_allergen in predicted_allergens:
-                    if fuzz.ratio(allergen, predicted_allergen) > 85: 
-                        detected_allergens.add(predicted_allergen)
+            for predicted_allergen in predicted_allergens:
+                if fuzz.ratio(allergen, predicted_allergen) > 85: 
+                    detected_allergens.add(predicted_allergen)
 
-            detected_allergens.update(set(predicted_allergens).intersection(set(user_allergens)))
+        detected_allergens.update(set(predicted_allergens).intersection(set(user_allergens)))
 
-            return JsonResponse({
-                "detected_allergens": list(detected_allergens),
-                "safe": not bool(detected_allergens)
-            })
-
-        except Exception as e:
-            return JsonResponse({"error": str(e)}, status=500)
-
-    return JsonResponse({"error": "Invalid request"}, status=400)
+        return {
+            "detected_allergens": list(detected_allergens),
+            "safe": not bool(detected_allergens)
+        }
+    except Exception as e:
+        return {"error": str(e), "safe": False}
