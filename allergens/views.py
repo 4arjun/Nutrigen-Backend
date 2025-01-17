@@ -21,7 +21,8 @@ from PIL import Image
 from io import BytesIO
 import base64
 import json
-
+from supabase import create_client, Client
+import psycopg2
 load_dotenv()
 
 
@@ -29,6 +30,31 @@ load_dotenv()
 import cv2
 from pyzbar.pyzbar import decode
 
+SUPABASE_URL = os.getenv("SUPABASE_URL")
+print("url:",SUPABASE_URL)
+SUPABASE_KEY = os.getenv("SUPABASE_KEY")
+print("key",SUPABASE_KEY)
+# Fetch variables
+USER = os.getenv("user")
+PASSWORD = os.getenv("password")
+HOST = os.getenv("host")
+PORT = os.getenv("port")
+DBNAME = os.getenv("dbname")
+
+# Connect to the database
+try:
+    connection = psycopg2.connect(
+        user=USER,
+        password=PASSWORD,
+        host=HOST,
+        port=PORT,
+        dbname=DBNAME
+    )
+    print("Connection successful!")
+    # Create a cursor to execute SQL queries
+    cursor = connection.cursor()
+except Exception as e:
+    print(f"Failed to connect: {e}")
 def BarcodeReader(image_path):
     # Read the image in numpy array using cv2
     img = cv2.imread(image_path)
@@ -63,20 +89,13 @@ def BarcodeReader(image_path):
         return non_url_data[0]
 def is_url(data):
     return re.match(r'^https?://', data) is not None
-
-
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 client = OpenAI(api_key=OPENAI_API_KEY)
-
-
-
 # Directory to save decoded images
 UPLOAD_DIR = "./uploads"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
-
 UPLOAD_DIRS = "./uploaded_images"
 os.makedirs(UPLOAD_DIRS, exist_ok=True)
-
 def crop_image(file_path):
     """Crops the image into a square centered on the image."""
     with Image.open(file_path) as img:
@@ -103,6 +122,7 @@ def upload_base64(request):
         # Parse JSON data
         data = json.loads(request.body)
         image_data = data.get("image")
+        uid = data.get("userid")
         if not image_data:
             return JsonResponse({"error": "No image data provided"}, status=400)
 
@@ -129,11 +149,17 @@ def upload_base64(request):
 
         # Get ingredients from the barcode
         ingredients, brand, name, image, nutrients, Nutri = mock_get_ingredients(barcode_info)
-
-
-        user_allergens = ["milk", "peanuts", "soy"]
-        allergen_detection_result = detect_allergens_from_ingredients(user_allergens, ingredients)
-
+        response = supabase(uid)
+        print("response:",response[0][10])
+        if isinstance(response[0][10], list):
+            print("response[0][10] is a list")
+            user_allergens = response[0][10]
+            allergen_detection_result = detect_allergens_from_ingredients(user_allergens, ingredients)
+        else:
+            print("response[0][10] is not a list")
+            user_allergens = [response[0][10]]
+            allergen_detection_result = detect_allergens_from_ingredients(user_allergens, ingredients)    
+        print("data:",allergen_detection_result)
         result = {
             "status": "success",
             "code": barcode_info,
@@ -173,7 +199,6 @@ def upload_base64(request):
     except Exception as e:
         # Catch any other exceptions and return an error message
         return JsonResponse({"error": f"Failed to decode and save image: {str(e)}"}, status=400)
-
 def generate_openai_text(name):
     try:
         prompt = f"""For the Product name: {', '.join(name)}
@@ -191,7 +216,6 @@ def generate_openai_text(name):
         return openai_response.choices[0].message.content.strip()
     except Exception as e:
         raise RuntimeError(f"OpenAI API Error: {str(e)}")
-
 def mock_get_ingredients(barcode_data):
     try:
         # Replace this URL with a dynamic URL using barcode_data if needed
@@ -251,19 +275,6 @@ def extract_ingredients(ingredient_string):
         return ingredients
     else:
         return []
-
-
-
-
-
-
-
-
-
-
-
-
-
 MODEL_PATH = "allergens/ml/allergen_bert_tfidf_ensemble_model.pkl"
 VECTORIZER_PATH = "allergens/ml/vectorizer.pkl"
 MLB_PATH = "allergens/ml/mlb.pkl"
@@ -331,3 +342,19 @@ def detect_allergens_from_ingredients(user_allergens, ingredients):
         }
     except Exception as e:
         return {"error": str(e), "safe": False}
+def supabase(uid):
+    # Example query
+    try:
+        print("Fetching data for user:", uid)
+        cursor.execute('SELECT * FROM "Users" WHERE "user_Id" = %s', (uid,))
+        result = cursor.fetchall()
+        print("Fetched Data:", result[0][10])
+        return result
+    except Exception as e:
+        print(f"Error fetching user data: {e}")
+        return None
+    finally:
+        # Close the cursor and connection after operations are complete
+        cursor.close()
+        connection.close()
+        print("Connection closed.")
