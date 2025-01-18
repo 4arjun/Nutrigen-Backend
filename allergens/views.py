@@ -30,8 +30,26 @@ import cv2
 from pyzbar.pyzbar import decode
 
 load_dotenv()
-
-
+# Fetch variables
+USER = os.getenv("user")
+PASSWORD = os.getenv("password")
+HOST = os.getenv("host")
+PORT = os.getenv("port")
+DBNAME = os.getenv("dbname")
+try:
+    connection = psycopg2.connect(
+    user=USER,
+    password=PASSWORD,
+    host=HOST,
+    port=PORT,
+    dbname=DBNAME
+    )
+    print("Connection successful!")
+    # Create a cursor to execute SQL queries
+    cursor = connection.cursor()
+except Exception as e:
+    print(f"Error connecting: {e}")
+       
 # Cache to store the model temporarily
 model_cache = {
     "model": None,
@@ -85,12 +103,7 @@ def predict(input_data):
     integer_value = int(predictions)
     return integer_value
 
-# Fetch variables
-USER = os.getenv("user")
-PASSWORD = os.getenv("password")
-HOST = os.getenv("host")
-PORT = os.getenv("port")
-DBNAME = os.getenv("dbname")
+
 
 
 def BarcodeReader(image_path):
@@ -390,16 +403,7 @@ def supabase(uid):
     
 # Connect to the database
     try:
-        connection = psycopg2.connect(
-        user=USER,
-        password=PASSWORD,
-        host=HOST,
-        port=PORT,
-        dbname=DBNAME
-        )
-        print("Connection successful!")
-        # Create a cursor to execute SQL queries
-        cursor = connection.cursor()
+       
         print("Fetching data for user:", uid)
         cursor.execute('SELECT * FROM "Users" WHERE "user_Id" = %s', (uid,))
         result = cursor.fetchall()
@@ -408,8 +412,3 @@ def supabase(uid):
     except Exception as e:
         print(f"Error fetching user data: {e}")
         return None
-    finally:
-        # Close the cursor and connection after operations are complete
-        cursor.close()
-        connection.close()
-        print("Connection closed.")
