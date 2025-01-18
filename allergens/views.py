@@ -23,17 +23,68 @@ import base64
 import json
 from supabase import create_client, Client
 import psycopg2
-load_dotenv()
-
-
-
+import pickle
+import pandas as pd
+import xgboost as xgb
 import cv2
 from pyzbar.pyzbar import decode
 
-SUPABASE_URL = os.getenv("SUPABASE_URL")
-print("url:",SUPABASE_URL)
-SUPABASE_KEY = os.getenv("SUPABASE_KEY")
-print("key",SUPABASE_KEY)
+load_dotenv()
+
+
+# Cache to store the model temporarily
+model_cache = {
+    "model": None,
+    "last_accessed": None
+}
+# Function to load the model
+user_input = {
+    'sugar_level': 150,
+    'cholesterol_level': 220,
+    'blood_pressure': 130,
+    'bmi': 25,
+    'age': 45,
+    'heart_rate': 75,
+    'sugar_in_product': 30,
+    'salt_in_product': 3,
+    'saturated_fat_in_product': 15,
+    'carbohydrates_in_product': 60
+}
+XGMODEL_PATH = "allergens/ml/xgboost_model.pkl"
+def load_model():
+    """
+    Load the XGBoost model using joblib.
+    :return: Loaded model.
+    """
+    if not os.path.exists(XGMODEL_PATH):
+        raise FileNotFoundError(f"Model file not found at {XGMODEL_PATH}")
+
+    # Load the model using joblib
+    model = joblib.load(XGMODEL_PATH)
+    print("Model loaded successfully using joblib.")
+    return model
+XG = load_model()
+# Function to make predictions
+def predict(input_data):
+    """
+    Load the model, make predictions, and release the model after use.
+    :param input_data: A dictionary containing input features.
+    :return: Model predictions.
+    """
+    # Load the model
+    
+
+    # If the input is a dictionary, convert it to a DataFrame
+    if isinstance(input_data, dict):
+        input_data = pd.DataFrame([input_data])  # Convert dict to DataFrame for consistency
+
+    # Make predictions using the DataFrame (or NumPy array)
+    predictions = XG.predict(input_data)
+
+    # Explicitly delete the model to free memory
+    integer_value = int(predictions)
+    return integer_value
+
 # Fetch variables
 USER = os.getenv("user")
 PASSWORD = os.getenv("password")
@@ -41,20 +92,7 @@ HOST = os.getenv("host")
 PORT = os.getenv("port")
 DBNAME = os.getenv("dbname")
 
-# Connect to the database
-try:
-    connection = psycopg2.connect(
-        user=USER,
-        password=PASSWORD,
-        host=HOST,
-        port=PORT,
-        dbname=DBNAME
-    )
-    print("Connection successful!")
-    # Create a cursor to execute SQL queries
-    cursor = connection.cursor()
-except Exception as e:
-    print(f"Failed to connect: {e}")
+
 def BarcodeReader(image_path):
     # Read the image in numpy array using cv2
     img = cv2.imread(image_path)
@@ -160,6 +198,11 @@ def upload_base64(request):
             user_allergens = [response[0][10]]
             allergen_detection_result = detect_allergens_from_ingredients(user_allergens, ingredients)    
         print("data:",allergen_detection_result)
+        try:
+            predictions = predict(user_input)
+            print("Predictions:", predictions)
+        except Exception as e:
+            print(f"An error occurred: {e}")
         result = {
             "status": "success",
             "code": barcode_info,
@@ -170,8 +213,8 @@ def upload_base64(request):
             "image":image,
             "nutrients":nutrients,
             "Nutri":Nutri,
-            "score":"",
-            "allergens_detected": allergen_detection_result.get("detected_allergens", []),
+            "score":predictions,
+            "allergens": allergen_detection_result.get("detected_allergens", []),
             "safe": allergen_detection_result.get("safe", True),
         }
 
@@ -226,7 +269,7 @@ def mock_get_ingredients(barcode_data):
         data = response.json()
         if data["status"] == 1: 
             value = data["product"].get("ingredients_text", [])
-            print(data["product"])
+            #print(data["product"])
             image = data["product"].get("image_small_url", "No image available")
             nutrients_text = data["product"].get("nutriments", {})
             name = data["product"].get("product_name","")
@@ -242,7 +285,7 @@ def mock_get_ingredients(barcode_data):
                 {"name": "Fiber", "value": nutrients_text.get("fiber_100g", 0)},
                 
             ]}
-            print("Nutri:",Nutri)
+            #print("Nutri:",Nutri)
             nutrients = {"value":[
                 {"name": "energy", "value": f'{nutrients_text.get("energy-kcal_100g", 0)} Kcal'},
                 {"name": "Fat", "value": f'{nutrients_text.get("fat_100g", 0)} g'},
@@ -254,7 +297,7 @@ def mock_get_ingredients(barcode_data):
                 {"name": "Sugar", "value": f'{nutrients_text.get("sugars_100g", 0)} g'}
             ]}
             
-            print("nutrients:",nutrients)           
+            #print("nutrients:",nutrients)           
             if value:  # Check if value is not an empty list
                 ingredients_list = [ing.strip() for ing in value.split(",")]
             else:
@@ -344,7 +387,19 @@ def detect_allergens_from_ingredients(user_allergens, ingredients):
         return {"error": str(e), "safe": False}
 def supabase(uid):
     # Example query
+    
+# Connect to the database
     try:
+        connection = psycopg2.connect(
+        user=USER,
+        password=PASSWORD,
+        host=HOST,
+        port=PORT,
+        dbname=DBNAME
+        )
+        print("Connection successful!")
+        # Create a cursor to execute SQL queries
+        cursor = connection.cursor()
         print("Fetching data for user:", uid)
         cursor.execute('SELECT * FROM "Users" WHERE "user_Id" = %s', (uid,))
         result = cursor.fetchall()
