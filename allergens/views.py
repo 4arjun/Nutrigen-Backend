@@ -269,7 +269,7 @@ def mock_get_ingredients(barcode_data):
         data = response.json()
         if data["status"] == 1: 
             value = data["product"].get("ingredients_text", [])
-            print(data["product"])
+            #print(data["product"])
             image = data["product"].get("image_small_url", "No image available")
             nutrients_text = data["product"].get("nutriments", {})
             name = data["product"].get("product_name","")
@@ -285,7 +285,7 @@ def mock_get_ingredients(barcode_data):
                 {"name": "Fiber", "value": nutrients_text.get("fiber_100g", 0)},
                 
             ]}
-            print("Nutri:",Nutri)
+            #print("Nutri:",Nutri)
             nutrients = {"value":[
                 {"name": "energy", "value": f'{nutrients_text.get("energy-kcal_100g", 0)} Kcal'},
                 {"name": "Fat", "value": f'{nutrients_text.get("fat_100g", 0)} g'},
@@ -297,7 +297,7 @@ def mock_get_ingredients(barcode_data):
                 {"name": "Sugar", "value": f'{nutrients_text.get("sugars_100g", 0)} g'}
             ]}
             
-            print("nutrients:",nutrients)           
+            #print("nutrients:",nutrients)           
             if value:  # Check if value is not an empty list
                 ingredients_list = [ing.strip() for ing in value.split(",")]
             else:
