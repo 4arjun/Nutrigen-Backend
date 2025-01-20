@@ -1,8 +1,9 @@
 from urllib import request
+import json
 import joblib
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-import json
+import ast
 from transformers import AutoTokenizer, AutoModel
 import torch
 import numpy as np
@@ -28,28 +29,35 @@ import pandas as pd
 import xgboost as xgb
 import cv2
 from pyzbar.pyzbar import decode
-
+from decimal import Decimal
 load_dotenv()
-
-
+# Fetch variables
+USER = os.getenv("user")
+PASSWORD = os.getenv("password")
+HOST = os.getenv("host")
+PORT = os.getenv("port")
+DBNAME = os.getenv("dbname")
+try:
+    connection = psycopg2.connect(
+    user=USER,
+    password=PASSWORD,
+    host=HOST,
+    port=PORT,
+    dbname=DBNAME
+    )
+    print("Connection successful!")
+    # Create a cursor to execute SQL queries
+    cursor = connection.cursor()
+except Exception as e:
+    print(f"Error connecting: {e}")
+       
 # Cache to store the model temporarily
 model_cache = {
     "model": None,
     "last_accessed": None
 }
 # Function to load the model
-user_input = {
-    'sugar_level': 150,
-    'cholesterol_level': 220,
-    'blood_pressure': 130,
-    'bmi': 25,
-    'age': 45,
-    'heart_rate': 75,
-    'sugar_in_product': 30,
-    'salt_in_product': 3,
-    'saturated_fat_in_product': 15,
-    'carbohydrates_in_product': 60
-}
+
 XGMODEL_PATH = "allergens/ml/xgboost_model.pkl"
 def load_model():
     """
@@ -85,12 +93,7 @@ def predict(input_data):
     integer_value = int(predictions)
     return integer_value
 
-# Fetch variables
-USER = os.getenv("user")
-PASSWORD = os.getenv("password")
-HOST = os.getenv("host")
-PORT = os.getenv("port")
-DBNAME = os.getenv("dbname")
+
 
 
 def BarcodeReader(image_path):
@@ -187,15 +190,44 @@ def upload_base64(request):
 
         # Get ingredients from the barcode
         ingredients, brand, name, image, nutrients, Nutri = mock_get_ingredients(barcode_info)
+        print(Nutri)
         response = supabase(uid)
-        print("response:",response[0][10])
-        if isinstance(response[0][10], list):
+        print("response:",response)
+        # data = {
+        # 'sugar_level': float(response[0][12]),
+        # 'cholesterol_level': float(response[0][14]),
+        # 'blood_pressure': float(response[0][13]),
+        # 'bmi': float(response[0][16]),
+        # 'age': int(response[0][4]),
+        # 'heart_rate': float(response[0][15]),
+        # }
+
+        # Printing each value
+        # for key, value in data.items():
+        #     print(f"{key}: {value}")
+        user_input = {
+            'sugar_level': float(response[0][12]) ,
+            'cholesterol_level': float(response[0][14]) ,
+            'blood_pressure': float(response[0][13]) ,
+            'bmi': float(response[0][16]) ,
+            'age': int(response[0][4]),             
+            'heart_rate': float(response[0][15]) ,
+            'sugar_in_product': Nutri["value"][7]["value"],
+            'salt_in_product':  Nutri["value"][9]["value"],
+            'saturated_fat_in_product':  Nutri["value"][5]["value"],
+            'carbohydrates_in_product':  Nutri["value"][2]["value"]
+        }
+        print(response[0][10])
+        print(f"Value of response[0][10]: {response[0][10]}")
+        list_data = ast.literal_eval(response[0][10])
+        print(list_data)
+        if isinstance(list_data, list):
             print("response[0][10] is a list")
-            user_allergens = response[0][10]
+            user_allergens = list_data
             allergen_detection_result = detect_allergens_from_ingredients(user_allergens, ingredients)
         else:
             print("response[0][10] is not a list")
-            user_allergens = [response[0][10]]
+            user_allergens = [list_data]
             allergen_detection_result = detect_allergens_from_ingredients(user_allergens, ingredients)    
         print("data:",allergen_detection_result)
         try:
@@ -203,6 +235,45 @@ def upload_base64(request):
             print("Predictions:", predictions)
         except Exception as e:
             print(f"An error occurred: {e}")
+        if barcode_info == "8901491101837":
+            hazard = {
+            "value": [
+                {
+                    "name": "Palm Oil",
+                    "value": "This cheap oil is packed with saturated fats, which promote the buildup of plaque in arteries, significantly increasing your risk for heart disease, stroke, and high cholesterol. Additionally, palm oil is highly processed and often undergoes hydrogenation, creating trans fats, which are some of the worst culprits for heart disease and metabolic disorders."
+                },
+                {
+                    "name": "Hydrolyzed Vegetable Protein",
+                    "value": "This processed protein is loaded with free glutamates, which act as neurotoxic excitotoxins. Long-term consumption can lead to brain damage, migraines, and neurodegenerative diseases like Alzheimer's. It's linked to a condition called Chinese Restaurant Syndrome, where headaches and nausea follow consumption."
+                },
+                {
+                    "name": "Flavour Enhancers 627 631",
+                    "value": "These are monosodium salts of nucleotides, which can overstimulate your glutamate receptors, contributing to neurological damage and chronic conditions like asthma and hyperactivity in children. They can also lead to obesity, as they trick the brain into craving more food by making it taste 'better' but at the cost of overstimulation."
+                },
+                {
+                    "name": "Maltodextrin",
+                    "value": "A highly processed sugar derived from starch that causes spikes in blood sugar and insulin resistance, contributing directly to type 2 diabetes and weight gain. It also disrupts the gut microbiome, allowing harmful bacteria to flourish, which can lead to inflammation, digestive issues, and weakened immune function."
+                },
+                {
+                    "name": "Anticaking Agent 551",
+                    "value": "Silica, an industrial compound, is used to prevent clumping in powdered ingredients, but it's linked to lung diseases, including silicosis, when inhaled. While unlikely to be inhaled from food, over time, the body's inability to properly break down these non-biodegradable compounds can lead to systemic inflammation, digestive disruptions, and long-term toxicity."
+                }
+            ]
+            }
+            Long = {
+            "value": [
+                {"key1":"The long-term consumption of Lays chips (with ingredients like high sodium, trans fats, and additives) can lead to heart disease, high blood pressure, and obesity, while also increasing the risk of diabetes and cognitive decline.",
+                 "key2":"These harmful ingredients disrupt your metabolism, cause chronic inflammation, and damage vital organs, speeding up the development of serious health conditions."   
+                },
+                {
+                    "Recommend":"Maximum of once a week"
+                }
+
+            ]}
+        else:
+            hazard = {}
+            Long = {}
+        print(hazard)
         result = {
             "status": "success",
             "code": barcode_info,
@@ -216,6 +287,8 @@ def upload_base64(request):
             "score":predictions,
             "allergens": allergen_detection_result.get("detected_allergens", []),
             "safe": allergen_detection_result.get("safe", True),
+            "hazard":hazard,
+            "Long":Long
         }
 
         '''if not result["ingredients"]:  # This checks if the list is empty
@@ -283,6 +356,7 @@ def mock_get_ingredients(barcode_data):
                 {"name": "Sodium", "value": nutrients_text.get("sodium_100g", 0)},
                 {"name": "Sugar", "value": nutrients_text.get("sugars_100g", 0)},
                 {"name": "Fiber", "value": nutrients_text.get("fiber_100g", 0)},
+                {"name": "Salt","value":nutrients_text.get("salt_100g", 0)}
                 
             ]}
             #print("Nutri:",Nutri)
@@ -388,18 +462,9 @@ def detect_allergens_from_ingredients(user_allergens, ingredients):
 def supabase(uid):
     # Example query
     
-# Connect to the database
+    # Connect to the database
     try:
-        connection = psycopg2.connect(
-        user=USER,
-        password=PASSWORD,
-        host=HOST,
-        port=PORT,
-        dbname=DBNAME
-        )
-        print("Connection successful!")
-        # Create a cursor to execute SQL queries
-        cursor = connection.cursor()
+       
         print("Fetching data for user:", uid)
         cursor.execute('SELECT * FROM "Users" WHERE "user_Id" = %s', (uid,))
         result = cursor.fetchall()
@@ -408,8 +473,3 @@ def supabase(uid):
     except Exception as e:
         print(f"Error fetching user data: {e}")
         return None
-    finally:
-        # Close the cursor and connection after operations are complete
-        cursor.close()
-        connection.close()
-        print("Connection closed.")
