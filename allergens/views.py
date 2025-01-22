@@ -1,4 +1,3 @@
-from urllib import request
 import json
 import joblib
 from django.http import JsonResponse
@@ -19,19 +18,18 @@ import re
 import base64
 from dotenv import load_dotenv
 from PIL import Image
-from io import BytesIO
 import base64
 import json
-from supabase import create_client, Client
 import psycopg2
-import pickle
 import pandas as pd
 import xgboost as xgb
 import cv2
 from pyzbar.pyzbar import decode
-from decimal import Decimal
+
+
 load_dotenv()
 # Fetch variables
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 USER = os.getenv("user")
 PASSWORD = os.getenv("password")
 HOST = os.getenv("host")
@@ -130,7 +128,6 @@ def BarcodeReader(image_path):
         return non_url_data[0]
 def is_url(data):
     return re.match(r'^https?://', data) is not None
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 client = OpenAI(api_key=OPENAI_API_KEY)
 # Directory to save decoded images
 UPLOAD_DIR = "./uploads"
@@ -460,9 +457,6 @@ def detect_allergens_from_ingredients(user_allergens, ingredients):
     except Exception as e:
         return {"error": str(e), "safe": False}
 def supabase(uid):
-    # Example query
-    
-    # Connect to the database
     try:
        
         print("Fetching data for user:", uid)
