@@ -190,9 +190,9 @@ def upload_base64(request):
         print(ingredients)
         print(1)
         gen_openai = identify_harmful_ingredients(ingredients)
-        print(gen_openai)
+
         print(2)
-        gen_openai = json.loads(gen_openai)
+       
         print("gen:",gen_openai)
         print(3)
         print(Nutri)
@@ -562,7 +562,7 @@ def identify_harmful_ingredients(ingredient_text):
         
 
         print(content)
-        return content
+        return json_data
 
 
     except Exception as e:
