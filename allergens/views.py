@@ -480,26 +480,41 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 client = OpenAI(api_key=OPENAI_API_KEY)
 
 def identify_harmful_ingredients(ingredient_text):        
-    prompt = f"""You are an expert dietician specializing in identifying harmful ingredients in processed food. A 20-year-old individual (160 cm, 70 kg, obese) with low-intensity exercise and the following health conditions: 
-    - Blood sugar: 90-110 mg/dL
-    - Blood pressure: 130/85 mmHg
-    - Cholesterol: 200-220 mg/dL, LDL: 165 mg/dL, HDL: 65 mg/dL
-    - Triglycerides: 500 mg/dL
-    - Liver function tests: SGOT (AST): 35 U/L, SGPT (ALT): 45 U/L, GGT: 50 U/L
-
-    Please identify the harmful ingredients in the following list and explain their risks:
-    
+    ingredient_text = ["milk", "peanut"]
+    prompt = f"""You are an expert dietician with extensive knowledge of ingredients and their effects on health. You are particularly focused on identifying harmful ingredients in processed food. A client has come to you with the following profile:
+    Age: 20 years old
+    Height: 160 cm
+    Weight: 70 kg (Obese)
+    Physical Activity: Low intensity workout
+    Medical Conditions:
+    Blood sugar (fasting): 90-110 mg/dL
+    Blood pressure: 130/85 mmHg
+    Total cholesterol: 200-220 mg/dL, LDL: 165 mg/dL, HDL: 65 mg/dL
+    Triglycerides: 500 mg/dL
+    SGOT (AST): 35 U/L, SGPT (ALT): 45 U/L, GGT: 50 U/L
+    Please identify the hazardous ingredients in the following list and explain the risks they pose to this individual. Your response should follow this format:
     Response Format:
-    hazard:
-    value: List of objects where each object has:
-    - name: Ingredient name
-    - value: Brief explanation of the health risks
-    Long:
-    value: List of objects with:
-    - key1: Summary of long-term risks (e.g., diabetes, heart disease)
-    - key2: How these ingredients contribute to chronic conditions
-    Recommend: Suggest how often this individual can safely consume foods with these ingredients (e.g., “Maximum of once a week”)
-
+    {{
+        "hazard": {{
+            "value": [
+                {{
+                    "name": "Name of the ingredient",
+                    "value": "A brief, simple explanation (2–3 sentences max) about the health risks this ingredient poses, why it's harmful, and how it could affect this individual’s medical conditions (avoid complex chemical terms)."
+                }}
+            ]
+        }},
+        "long": {{
+            "value": [
+                {{
+                    "key1": "A summary of the long-term health risks these ingredients, when combined, could cause with regular consumption (e.g., diabetes, heart disease, liver damage, etc.).",
+                    "key2": "A further explanation of how these ingredients affect overall health and contribute to chronic conditions over time."
+                }}
+            ]
+        }},
+        "recommend": {{
+            "value": "A suggestion for how often this individual can consume foods with these ingredients (e.g., Maximum of once a week)."
+        }}
+    }}
     Ingredients to analyze: {ingredient_text}    
     """
 
