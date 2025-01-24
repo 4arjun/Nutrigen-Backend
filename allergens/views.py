@@ -189,7 +189,23 @@ def upload_base64(request):
         ingredients, brand, name, image, nutrients, Nutri = mock_get_ingredients(barcode_info)
         gen_openai = identify_harmful_ingredients(ingredients)
         print(Nutri)
-        response = supabase(uid)
+        try:
+            response = supabase(uid)
+        except:
+            try:
+                connection = psycopg2.connect(
+                user=USER,
+                password=PASSWORD,
+                host=HOST,
+                port=PORT,
+                dbname=DBNAME
+                )
+                print("Connection successful!")
+                # Create a cursor to execute SQL queries
+                cursor = connection.cursor()
+                response = supabase(uid)
+            except Exception as e:
+                print(f"Error connecting: {e}")
         print("response:",response)
         # data = {
         # 'sugar_level': float(response[0][12]),
@@ -480,7 +496,7 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 client = OpenAI(api_key=OPENAI_API_KEY)
 
 def identify_harmful_ingredients(ingredient_text):        
-    ingredient_text = ["milk", "peanut"]
+    ingredient_text = ["milk", "peanut","egg"]
     prompt = f"""You are an expert dietician with extensive knowledge of ingredients and their effects on health. You are particularly focused on identifying harmful ingredients in processed food. A client has come to you with the following profile:
     Age: 20 years old
     Height: 160 cm
