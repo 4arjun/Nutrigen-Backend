@@ -187,6 +187,7 @@ def upload_base64(request):
 
         # Get ingredients from the barcode
         ingredients, brand, name, image, nutrients, Nutri = mock_get_ingredients(barcode_info)
+        gen_openai = identify_harmful_ingredients(ingredients)
         print(Nutri)
         response = supabase(uid)
         print("response:",response)
@@ -285,7 +286,8 @@ def upload_base64(request):
             "allergens": allergen_detection_result.get("detected_allergens", []),
             "safe": allergen_detection_result.get("safe", True),
             "hazard":hazard,
-            "Long":Long
+            "Long":Long,
+            "generated_text":gen_openai,
         }
 
         '''if not result["ingredients"]:  # This checks if the list is empty
@@ -320,6 +322,7 @@ def generate_openai_text(name):
         """
 
         openai_response = client.chat.completions.create(
+            
             model="gpt-4o-mini",
             messages=[
                 {"role": "user", "content": prompt}
@@ -467,3 +470,53 @@ def supabase(uid):
     except Exception as e:
         print(f"Error fetching user data: {e}")
         return None
+    
+from openai import OpenAI
+
+client = OpenAI()
+from openai import OpenAI
+import openai
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+client = OpenAI(api_key=OPENAI_API_KEY)
+
+def identify_harmful_ingredients(ingredient_text):        
+    prompt = f"""You are an expert dietician specializing in identifying harmful ingredients in processed food. A 20-year-old individual (160 cm, 70 kg, obese) with low-intensity exercise and the following health conditions: 
+    - Blood sugar: 90-110 mg/dL
+    - Blood pressure: 130/85 mmHg
+    - Cholesterol: 200-220 mg/dL, LDL: 165 mg/dL, HDL: 65 mg/dL
+    - Triglycerides: 500 mg/dL
+    - Liver function tests: SGOT (AST): 35 U/L, SGPT (ALT): 45 U/L, GGT: 50 U/L
+
+    Please identify the harmful ingredients in the following list and explain their risks:
+    
+    Response Format:
+    hazard:
+    value: List of objects where each object has:
+    - name: Ingredient name
+    - value: Brief explanation of the health risks
+    Long:
+    value: List of objects with:
+    - key1: Summary of long-term risks (e.g., diabetes, heart disease)
+    - key2: How these ingredients contribute to chronic conditions
+    Recommend: Suggest how often this individual can safely consume foods with these ingredients (e.g., “Maximum of once a week”)
+
+    Ingredients to analyze: {ingredient_text}    
+    """
+
+    try:
+        response = openai.chat.completions.create(model="gpt-4o-mini", 
+        messages=[
+                {"role": "user", "content": prompt}
+            ],
+        max_tokens=1000,
+
+        )
+
+        content =  response.choices[0].message.content.strip()
+        return content
+
+
+    except Exception as e:
+        print(f"Error with OpenAI API: {e}")
+        return []
+
