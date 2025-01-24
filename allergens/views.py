@@ -187,7 +187,14 @@ def upload_base64(request):
 
         # Get ingredients from the barcode
         ingredients, brand, name, image, nutrients, Nutri = mock_get_ingredients(barcode_info)
+        print(ingredients)
+        print(1)
         gen_openai = identify_harmful_ingredients(ingredients)
+        print(gen_openai)
+        print(2)
+        gen_openai = json.loads(gen_openai)
+        print("gen:",gen_openai)
+        print(3)
         print(Nutri)
         try:
             response = supabase(uid)
@@ -207,6 +214,7 @@ def upload_base64(request):
             except Exception as e:
                 print(f"Error connecting: {e}")
         print("response:",response)
+        print(4)
         # data = {
         # 'sugar_level': float(response[0][12]),
         # 'cholesterol_level': float(response[0][14]),
@@ -301,8 +309,9 @@ def upload_base64(request):
             "score":predictions,
             "allergens": allergen_detection_result.get("detected_allergens", []),
             "safe": allergen_detection_result.get("safe", True),
-            "hazard":hazard,
-            "Long":Long,
+            "hazard":gen_openai["hazard"],
+            "Long":gen_openai["long"],
+            "Recommend":"Maximum of once a week",
             "generated_text":gen_openai,
         }
 
@@ -496,7 +505,6 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 client = OpenAI(api_key=OPENAI_API_KEY)
 
 def identify_harmful_ingredients(ingredient_text):        
-    ingredient_text = ["milk", "peanut","egg"]
     prompt = f"""You are an expert dietician with extensive knowledge of ingredients and their effects on health. You are particularly focused on identifying harmful ingredients in processed food. A client has come to you with the following profile:
     Age: 20 years old
     Height: 160 cm
