@@ -552,6 +552,8 @@ def identify_harmful_ingredients(ingredient_text):
 
         )
         content =  response.choices[0].message.content.strip()
+        content = json.dumps(content, indent = 4)
+
         print(content)
         return content
 
@@ -559,4 +561,3 @@ def identify_harmful_ingredients(ingredient_text):
     except Exception as e:
         print(f"Error with OpenAI API: {e}")
         return []
-
