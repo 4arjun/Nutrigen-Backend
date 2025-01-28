@@ -187,7 +187,14 @@ def upload_base64(request):
 
         # Get ingredients from the barcode
         ingredients, brand, name, image, nutrients, Nutri = mock_get_ingredients(barcode_info)
+        print(ingredients)
+        print(1)
         gen_openai = identify_harmful_ingredients(ingredients)
+
+        print(2)
+       
+        print("gen:",gen_openai)
+        print(3)
         print(Nutri)
         try:
             response = supabase(uid)
@@ -207,6 +214,7 @@ def upload_base64(request):
             except Exception as e:
                 print(f"Error connecting: {e}")
         print("response:",response)
+        print(4)
         # data = {
         # 'sugar_level': float(response[0][12]),
         # 'cholesterol_level': float(response[0][14]),
@@ -301,8 +309,9 @@ def upload_base64(request):
             "score":predictions,
             "allergens": allergen_detection_result.get("detected_allergens", []),
             "safe": allergen_detection_result.get("safe", True),
-            "hazard":hazard,
-            "Long":Long,
+            "hazard":gen_openai["hazard"],
+            "Long":gen_openai["long"],
+            "Recommend":"Maximum of once a week",
             "generated_text":gen_openai,
         }
 
@@ -496,18 +505,17 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 client = OpenAI(api_key=OPENAI_API_KEY)
 
 def identify_harmful_ingredients(ingredient_text):        
-    ingredient_text = ["milk", "peanut","egg"]
     prompt = f"""You are an expert dietician with extensive knowledge of ingredients and their effects on health. You are particularly focused on identifying harmful ingredients in processed food. A client has come to you with the following profile:
     Age: 20 years old
     Height: 160 cm
-    Weight: 70 kg (Obese)
-    Physical Activity: Low intensity workout
+    Weight: 60 kg 
+    Physical Activity: Low intensity
     Medical Conditions:
-    Blood sugar (fasting): 90-110 mg/dL
-    Blood pressure: 130/85 mmHg
-    Total cholesterol: 200-220 mg/dL, LDL: 165 mg/dL, HDL: 65 mg/dL
-    Triglycerides: 500 mg/dL
-    SGOT (AST): 35 U/L, SGPT (ALT): 45 U/L, GGT: 50 U/L
+    Blood sugar (fasting): 90 mg/dL
+    Blood pressure: 120/75 mmHg
+    Total cholesterol: 200 mg/dL, LDL: 135 mg/dL, HDL: 65 mg/dL
+    Triglycerides: 140 mg/dL
+    SGOT (AST): 25 U/L, SGPT (ALT): 35 U/L, GGT: 40 U/L
     Please identify the hazardous ingredients in the following list and explain the risks they pose to this individual. Your response should follow this format:
     Response Format:
     {{
@@ -531,7 +539,8 @@ def identify_harmful_ingredients(ingredient_text):
             "value": "A suggestion for how often this individual can consume foods with these ingredients (e.g., Maximum of once a week)."
         }}
     }}
-    Ingredients to analyze: {ingredient_text}    
+    Ingredients to analyze: {ingredient_text}
+    make sure to list out ingridients that have high chances of ill effects for our users. Dont list all the ingridients , instead make sure we consider the health of above user    
     """
 
     try:
@@ -542,9 +551,18 @@ def identify_harmful_ingredients(ingredient_text):
         max_tokens=1000,
 
         )
-
         content =  response.choices[0].message.content.strip()
-        return content
+        #content = json.dumps(content, indent = 4)
+        json_str = content.strip('```json').strip('```').strip()
+
+        json_data = json.loads(json_str)
+
+        print(json_data)
+
+        
+
+        print(content)
+        return json_data
 
 
     except Exception as e:

@@ -1,5 +1,7 @@
 venv
 /pack
 /__pycache__
+__pycache__/
 pack
 .env
+myenv/
