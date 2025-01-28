@@ -19,6 +19,8 @@ from sklearn.metrics.pairwise import cosine_similarity
 from rapidfuzz import fuzz
 from openai import OpenAI
 from dotenv import load_dotenv
+from allergens.models import Users
+
 
 # Load environment variables
 load_dotenv()
@@ -280,6 +282,9 @@ def upload_base64(request):
 
         data = json.loads(request.body)
         image_data = data.get("image")
+        user_id = data.get("userid")
+
+
         
         if not image_data:
             return JsonResponse(
@@ -310,21 +315,26 @@ def upload_base64(request):
 
         ingredients, brand, name, image, nutrients, Nutri = mock_get_ingredients(barcode_info)
         gen_openai = identify_harmful_ingredients(ingredients)
+        user = Users.objects.get(user_id=user_id)
+        user_allergens = user.disease
+        # user_allergens = user_allergens.split(",")
 
         user_input = {
-            'sugar_level': 12,
-            'cholesterol_level': 23,
-            'blood_pressure': 33,
-            'bmi': 44,
-            'age': 44,
-            'heart_rate': 55,
+            'sugar_level': float(user.sugar),
+            'cholesterol_level': float(user.cholestrol),
+            'blood_pressure': float(user.bp),
+            'bmi': float(user.bmi),
+            'age': int(user.age),
+            'heart_rate': float(user.heartrate),
             'sugar_in_product': Nutri["value"][7]["value"],
             'salt_in_product': Nutri["value"][9]["value"],
             'saturated_fat_in_product': Nutri["value"][5]["value"],
             'carbohydrates_in_product': Nutri["value"][2]["value"]
         }
         
-        user_allergens = ["milk"]
+
+
+
         allergen_detection_result = detect_allergens_from_ingredients(
             user_allergens, 
             ingredients
