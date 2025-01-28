@@ -1,42 +1,56 @@
-# **SafeChoice**
+# Vitali.ai
 
-**SafeChoice** is a mobile application designed to empower Indian consumers by providing transparency and personalized insights into food and cosmetic products. By leveraging advanced technologies like AI-driven analysis, barcode scanning, and multilingual support, SafeChoice helps users make informed and healthier product choices.
+Vitali.ai is a powerful mobile application designed to empower users with accurate and timely knowledge about the ingredients in food and cosmetic products. By leveraging AI, machine learning, and advanced scanning technologies, Vitali.ai ensures users make informed and healthier product choices. With just a snap, the app scrapes the web for detailed ingredient information and delivers insights via a fine-tuned LLM (Large Language Model), tailored to the user's unique health profile.
 
 ---
 
 ## **Problem Statement**
 
-Consumers in India face significant challenges in understanding the harmful ingredients in food and cosmetic products due to:
-- Deceptive labeling practices.
-- Language barriers.
-- Limited health literacy.
+Consumers face several challenges in understanding the potential health impacts of food and cosmetic products due to:
 
-These issues lead to poor product choices, increased health risks, and mistrust, especially for individuals with specific health conditions or preferences. Existing solutions fail to offer personalized, actionable insights to address these problems effectively.
+- Deceptive and unclear labeling practices.
+- Lack of access to detailed ingredient information.
+- Language barriers and limited health literacy.
+- Absence of personalized insights based on individual health conditions.
+
+These challenges lead to uninformed decisions, increased health risks, and a lack of trust in product labeling. Existing solutions often fail to provide the depth of information and personalization required to address these problems effectively.
 
 ---
 
 ## **Solution**
 
-SafeChoice addresses these challenges by offering:
-1. **Scan & Decode**: Barcode and QR code scanning to instantly retrieve product details, including ingredients and nutritional information.
-2. **Language Accessibility**: Translates product details into various Indian languages, making the app accessible to rural and underserved populations.
-3. **AI-Driven Health Impact Analysis**: Identifies harmful substances and provides insights on their potential risks, presenting the information in an easy-to-understand format.
-4. **Personalization (Pro Features)**: Custom recommendations based on user profiles, including health conditions, dietary preferences, and skin/hair types.
+Vitali.ai addresses these challenges by offering:
+
+1. **Snap & Scrape**: Simply snap a picture of a product to scrape the web for detailed ingredient and nutritional information.
+2. **Barcode & QR Code Scanning**: Instantly retrieve product details using barcode or QR code scanning.
+3. **AI-Powered Analysis**: Leverage a fine-tuned LLM to analyze ingredients and provide insights on their potential risks, ill effects, and allergens.
+4. **Personalized Recommendations**: Deliver tailored insights based on individual health profiles, such as sugar levels, cholesterol, blood pressure, and more.
 
 ---
 
 ## **Key Features**
 
-- **Barcode/QR Code Scanning**: Quickly access detailed product information by scanning barcodes or QR codes on food and cosmetic products.
-- **Multilingual Support**: Translate product labels and insights into multiple Indian languages, catering to a diverse user base, including rural populations.
-- **Health Impact Analysis**: AI-powered analysis of ingredients to identify harmful substances and potential health risks.
-- **Personalized Recommendations**: Tailored product insights based on individual health profiles, dietary preferences, or skin/hair types.
-- **Product Ratings and Alternatives**: Provide safety ratings for products and suggest safer alternatives when applicable.
-- **Allergen Detection**: Automatically identify allergens and warn users based on their preferences or health conditions.
-- **Offline Mode (Planned)**: Core functionality for scanning and analysis will work offline for users in remote areas.
-- **Sustainability Insights**: Highlight eco-friendly and cruelty-free products, promoting sustainable consumer choices.
-- **Favorites and Watchlist**: Save favorite products or add items to a watchlist to revisit later.
-- **Community Feedback**: Allow users to share feedback and reviews for products to improve collective insights.
+- **Ingredient Analysis via Image or Scan**: Snap a photo of the product or scan its barcode to get a comprehensive breakdown of ingredients and nutritional labels.
+- **AI-Driven Insights**: Utilize our fine-tuned LLM to identify hazardous ingredients, long-term health impacts, and recommended usage doses.
+- **Allergen Detection**: Automatically detect allergens and warn users based on their health profiles and preferences.
+- **Personalized Profiles**: Users can create profiles with details like sugar levels, BP, cholesterol levels, LDL/HDL, fatty acid levels, etc., to receive customized insights.
+- **Save & Review**: Save scanned products and their insights for future reference.
+- **Community Feedback**: Share reviews and feedback on products to improve collective knowledge.
+- **Sustainability Insights**: Highlight eco-friendly and cruelty-free products for sustainable consumer choices.
+
+---
+
+## **How It Works**
+
+1. **Sign-Up/Sign-In**: Users can register or log in to the app. Premium users can provide additional health information for personalized recommendations.
+2. **Scan or Snap**: Users can either search for a product name, scan a barcode, or snap a picture of the product.
+3. **Data Processing**: The app fetches the entire ingredient and nutritional details from the web and processes it using a fine-tuned LLM.
+4. **Insight Generation**: The app provides:
+   - Hazardous ingredient classifications.
+   - Possible ill effects and long-term impacts.
+   - Allergen warnings.
+   - Recommended usage doses.
+5. **Save & Review**: Users can save the insights for later review or share them with others.
 
 ---
 
@@ -44,8 +58,81 @@ SafeChoice addresses these challenges by offering:
 
 - **Frontend**: React Native
 - **Backend**: Django
-- **Database**: MongoDB
-- **AI/ML**: TensorFlow, OpenAI API
+- **Database**: PostgreSQL
+- **AI/ML**: PyTorch, Fine-tuned LLM (Large Language Model)
 - **Cloud Services**: AWS
-- **Barcode/QR Code Scanning**: Libraries and APIs for seamless scanning.
+- **Barcode/QR Code Scanning**: OpenCV for barcode detection
 
+---
+
+## **Planned Features**
+
+- **Expanded Multilingual Support**: Provide product insights in more regional languages to enhance accessibility.
+- **Integration with Wearables**: Sync health profiles with wearable devices for real-time updates and recommendations.
+- **API for Developers**: Offer an API to integrate Vitali.ai's functionality into other platforms.
+
+---
+## **Getting Started**
+
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/4arjun/Vitalia.ai
+   ```
+
+2. Navigate to the project directory:
+   ```bash
+   cd vitalia-ai
+   ```
+
+3. Set up a virtual environment:
+   ```bash
+   python3 -m venv env
+   source env/bin/activate  # On Windows: env\Scripts\activate
+   ```
+
+4. Install the dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+5. Apply migrations to set up the database:
+   ```bash
+   python manage.py migrate
+   ```
+
+6. Run the development server:
+   ```bash
+   python manage.py runserver
+   ```
+
+7. Access the application in your browser at:
+   ```
+   http://127.0.0.1:8000
+   ```
+
+---
+
+## **Contributing**
+
+We welcome contributions to improve Vitali.ai! If you'd like to contribute, please follow these steps:
+
+1. Fork the repository.
+2. Create a feature branch:
+   ```bash
+   git checkout -b feature-name
+   ```
+3. Commit your changes:
+   ```bash
+   git commit -m "Add your message here"
+   ```
+4. Push your branch:
+   ```bash
+   git push origin feature-name
+   ```
+5. Open a pull request on GitHub.
+
+---
+
+## **License**
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
