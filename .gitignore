@@ -5,3 +5,4 @@ __pycache__/
 pack
 .env
 myenv/
+base64_image.txt
