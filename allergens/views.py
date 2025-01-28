@@ -32,7 +32,6 @@ client = OpenAI(api_key=OPENAI_API_KEY)
 # Constants
 UPLOAD_DIR = "./uploads"
 UPLOAD_DIRS = "./uploaded_images"
-XGMODEL_PATH = "allergens/ml/xgboost_model.pkl"
 MODEL_PATH = "allergens/ml/allergen_bert_tfidf_ensemble_model.pkl"
 VECTORIZER_PATH = "allergens/ml/vectorizer.pkl" 
 MLB_PATH = "allergens/ml/mlb.pkl"
@@ -42,7 +41,6 @@ os.makedirs(UPLOAD_DIR, exist_ok=True)
 os.makedirs(UPLOAD_DIRS, exist_ok=True)
 
 # Load ML models
-XG = joblib.load(XGMODEL_PATH)
 model = joblib.load(MODEL_PATH)
 vectorizer = joblib.load(VECTORIZER_PATH)
 mlb = joblib.load(MLB_PATH)
@@ -50,12 +48,7 @@ tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
 bert_model = AutoModel.from_pretrained("bert-base-uncased")
 inflect_engine = inflect.engine()
 
-def predict(input_data):
-    """Make predictions using XGBoost model"""
-    if isinstance(input_data, dict):
-        input_data = pd.DataFrame([input_data])
-    predictions = XG.predict(input_data)
-    return int(predictions)
+
 
 def BarcodeReader(image_path):
     """Read barcode from image"""
@@ -340,46 +333,7 @@ def upload_base64(request):
             ingredients
         )
         
-        predictions = predict(user_input)
-
-        hazard = {}
-        Long = {}
-        if barcode_info == "8901491101837":
-            hazard = {
-                "value": [
-                    {
-                        "name": "Palm Oil",
-                        "value": "This cheap oil is packed with saturated fats, which promote the buildup of plaque in arteries, significantly increasing your risk for heart disease, stroke, and high cholesterol. Additionally, palm oil is highly processed and often undergoes hydrogenation, creating trans fats, which are some of the worst culprits for heart disease and metabolic disorders."
-                    },
-                    {
-                        "name": "Hydrolyzed Vegetable Protein",
-                        "value": "This processed protein is loaded with free glutamates, which act as neurotoxic excitotoxins. Long-term consumption can lead to brain damage, migraines, and neurodegenerative diseases like Alzheimer's. It's linked to a condition called Chinese Restaurant Syndrome, where headaches and nausea follow consumption."
-                    },
-                    {
-                        "name": "Flavour Enhancers 627 631",
-                        "value": "These are monosodium salts of nucleotides, which can overstimulate your glutamate receptors, contributing to neurological damage and chronic conditions like asthma and hyperactivity in children. They can also lead to obesity, as they trick the brain into craving more food by making it taste 'better' but at the cost of overstimulation."
-                    },
-                    {
-                        "name": "Maltodextrin",
-                        "value": "A highly processed sugar derived from starch that causes spikes in blood sugar and insulin resistance, contributing directly to type 2 diabetes and weight gain. It also disrupts the gut microbiome, allowing harmful bacteria to flourish, which can lead to inflammation, digestive issues, and weakened immune function."
-                    },
-                    {
-                        "name": "Anticaking Agent 551",
-                        "value": "Silica, an industrial compound, is used to prevent clumping in powdered ingredients, but it's linked to lung diseases, including silicosis, when inhaled. While unlikely to be inhaled from food, over time, the body's inability to properly break down these non-biodegradable compounds can lead to systemic inflammation, digestive disruptions, and long-term toxicity."
-                    }
-                ]
-            }
-            Long = {
-                "value": [
-                    {
-                        "key1": "The long-term consumption of Lays chips (with ingredients like high sodium, trans fats, and additives) can lead to heart disease, high blood pressure, and obesity, while also increasing the risk of diabetes and cognitive decline.",
-                        "key2": "These harmful ingredients disrupt your metabolism, cause chronic inflammation, and damage vital organs, speeding up the development of serious health conditions."
-                    },
-                    {
-                        "Recommend": "Maximum of once a week"
-                    }
-                ]
-            }
+        predictions = 23
 
         result = {
             "status": "success",
