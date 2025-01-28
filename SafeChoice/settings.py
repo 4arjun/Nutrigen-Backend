@@ -84,11 +84,11 @@ WSGI_APPLICATION = 'SafeChoice.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
+        "NAME" : os.getenv("dbname"),
         "USER" : os.getenv("user"),
         "PASSWORD" : os.getenv("password"),
         "HOST" : os.getenv("host"),
         "PORT" : os.getenv("port"),
-        "DBNAME" : os.getenv("dbname"),
             }
 }
 

@@ -69,6 +69,9 @@ supafunc
 sympy
 threadpoolctl
 tokenizers
+torch
+torchaudio
+torchvision
 tqdm
 transformers
 typeguard
@@ -78,4 +81,3 @@ urllib3
 websockets
 xgboost
 yarl
-torch 
