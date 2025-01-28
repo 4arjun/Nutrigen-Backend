@@ -28,33 +28,14 @@ from pyzbar.pyzbar import decode
 
 
 load_dotenv()
-# Fetch variables
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-USER = os.getenv("user")
-PASSWORD = os.getenv("password")
-HOST = os.getenv("host")
-PORT = os.getenv("port")
-DBNAME = os.getenv("dbname")
-try:
-    connection = psycopg2.connect(
-    user=USER,
-    password=PASSWORD,
-    host=HOST,
-    port=PORT,
-    dbname=DBNAME
-    )
-    print("Connection successful!")
-    # Create a cursor to execute SQL queries
-    cursor = connection.cursor()
-except Exception as e:
-    print(f"Error connecting: {e}")
+
        
 # Cache to store the model temporarily
 model_cache = {
     "model": None,
     "last_accessed": None
 }
-# Function to load the model
 
 XGMODEL_PATH = "allergens/ml/xgboost_model.pkl"
 def load_model():
@@ -126,6 +107,7 @@ def BarcodeReader(image_path):
         #cv2.waitKey(0)
         #cv2.destroyAllWindows() 
         return non_url_data[0]
+    
 def is_url(data):
     return re.match(r'^https?://', data) is not None
 client = OpenAI(api_key=OPENAI_API_KEY)
@@ -160,7 +142,7 @@ def upload_base64(request):
         # Parse JSON data
         data = json.loads(request.body)
         image_data = data.get("image")
-        uid = data.get("userid")
+        # uid = data.get("userid")
         if not image_data:
             return JsonResponse({"error": "No image data provided"}, status=400)
 
@@ -188,32 +170,13 @@ def upload_base64(request):
         # Get ingredients from the barcode
         ingredients, brand, name, image, nutrients, Nutri = mock_get_ingredients(barcode_info)
         print(ingredients)
-        print(1)
         gen_openai = identify_harmful_ingredients(ingredients)
 
-        print(2)
        
         print("gen:",gen_openai)
-        print(3)
         print(Nutri)
-        try:
-            response = supabase(uid)
-        except:
-            try:
-                connection = psycopg2.connect(
-                user=USER,
-                password=PASSWORD,
-                host=HOST,
-                port=PORT,
-                dbname=DBNAME
-                )
-                print("Connection successful!")
-                # Create a cursor to execute SQL queries
-                cursor = connection.cursor()
-                response = supabase(uid)
-            except Exception as e:
-                print(f"Error connecting: {e}")
-        print("response:",response)
+        
+       
         print(4)
         # data = {
         # 'sugar_level': float(response[0][12]),
@@ -228,29 +191,21 @@ def upload_base64(request):
         # for key, value in data.items():
         #     print(f"{key}: {value}")
         user_input = {
-            'sugar_level': float(response[0][12]) ,
-            'cholesterol_level': float(response[0][14]) ,
-            'blood_pressure': float(response[0][13]) ,
-            'bmi': float(response[0][16]) ,
-            'age': int(response[0][4]),             
-            'heart_rate': float(response[0][15]) ,
+            'sugar_level': 12 ,
+            'cholesterol_level': 23 ,
+            'blood_pressure': 33 ,
+            'bmi': 44 ,
+            'age': 44,             
+            'heart_rate': 55 ,
             'sugar_in_product': Nutri["value"][7]["value"],
             'salt_in_product':  Nutri["value"][9]["value"],
             'saturated_fat_in_product':  Nutri["value"][5]["value"],
             'carbohydrates_in_product':  Nutri["value"][2]["value"]
         }
-        print(response[0][10])
-        print(f"Value of response[0][10]: {response[0][10]}")
-        list_data = ast.literal_eval(response[0][10])
-        print(list_data)
-        if isinstance(list_data, list):
-            print("response[0][10] is a list")
-            user_allergens = list_data
-            allergen_detection_result = detect_allergens_from_ingredients(user_allergens, ingredients)
-        else:
-            print("response[0][10] is not a list")
-            user_allergens = [list_data]
-            allergen_detection_result = detect_allergens_from_ingredients(user_allergens, ingredients)    
+        user_allergens = ["milk"]
+     
+        allergen_detection_result = detect_allergens_from_ingredients(user_allergens, ingredients)
+     
         print("data:",allergen_detection_result)
         try:
             predictions = predict(user_input)
@@ -484,17 +439,7 @@ def detect_allergens_from_ingredients(user_allergens, ingredients):
         }
     except Exception as e:
         return {"error": str(e), "safe": False}
-def supabase(uid):
-    try:
-       
-        print("Fetching data for user:", uid)
-        cursor.execute('SELECT * FROM "Users" WHERE "user_Id" = %s', (uid,))
-        result = cursor.fetchall()
-        print("Fetched Data:", result[0][10])
-        return result
-    except Exception as e:
-        print(f"Error fetching user data: {e}")
-        return None
+
     
 from openai import OpenAI
 
