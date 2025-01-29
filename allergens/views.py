@@ -49,14 +49,37 @@ bert_model = AutoModel.from_pretrained("bert-base-uncased")
 inflect_engine = inflect.engine()
 
 
+def rotate_image(image):
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    edges = cv2.Canny(gray, 50, 150)
+    contours, _ = cv2.findContours(edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+    if contours:
+        rect = cv2.minAreaRect(max(contours, key=cv2.contourArea))
+        angle = rect[-1]
+        if angle < -45:
+            angle += 90
+
+        (h, w) = image.shape[:2]
+        center = (w // 2, h // 2)
+        M = cv2.getRotationMatrix2D(center, angle, 1.0)
+        return cv2.warpAffine(image, M, (w, h))
+    
+    return image 
+
+
 
 def BarcodeReader(image_path):
-    """Read barcode from image"""
     img = cv2.imread(image_path)
+
     detectedBarcodes = decode(img)
-    
+
     if not detectedBarcodes:
-        return "error:barcode not detected"
+        img = rotate_image(img)
+        detectedBarcodes = decode(img)
+
+    if not detectedBarcodes:
+        return "error: barcode not detected"
     
     barcode_data = []
     for barcode in detectedBarcodes:
@@ -64,7 +87,7 @@ def BarcodeReader(image_path):
             "data": barcode.data.decode("utf-8"),
             "type": barcode.type
         })
-        
+
     non_url_data = [item['data'] for item in barcode_data 
                     if 'data' in item and not is_url(item['data'])]
     
