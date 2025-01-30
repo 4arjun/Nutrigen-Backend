@@ -9,3 +9,4 @@ base64_image.txt
 pyvenv.cfg
 *.pyc
 .DS_Store
+.python-version

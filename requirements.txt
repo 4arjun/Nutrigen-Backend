@@ -81,3 +81,5 @@ urllib3
 websockets
 xgboost
 yarl
+celery
+redis
