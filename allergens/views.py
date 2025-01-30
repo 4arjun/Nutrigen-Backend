@@ -167,7 +167,8 @@ def detect_allergens_from_ingredients(user_allergens, ingredients):
 def mock_get_ingredients(barcode_data):
     """Get product info from Open Food Facts API"""
     try:
-        url = f"https://world.openfoodfacts.net/api/v2/product/{barcode_data}"
+        url = f"https://world.openfoodfacts.org/api/v2/product/{barcode_data}"
+
         response = requests.get(url)
         response.raise_for_status()
         
@@ -263,7 +264,7 @@ def identify_harmful_ingredients(ingredient_text):
         response = client.chat.completions.create(
             model="gpt-4o-mini",
             messages=[{"role": "user", "content": prompt}],
-            max_tokens=1000
+            max_tokens=500
         )
         content = response.choices[0].message.content.strip()
         
