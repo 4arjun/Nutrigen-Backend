@@ -1,6 +1,6 @@
-# Vitali.ai
+# Vitalia.ai
 
-Vitali.ai is a powerful mobile application designed to empower users with accurate and timely knowledge about the ingredients in food and cosmetic products. By leveraging AI, machine learning, and advanced scanning technologies, Vitali.ai ensures users make informed and healthier product choices. With just a snap, the app scrapes the web for detailed ingredient information and delivers insights via a fine-tuned LLM (Large Language Model), tailored to the user's unique health profile.
+Vitalia.ai is a powerful mobile application designed to empower users with accurate and timely knowledge about the ingredients in food and cosmetic products. By leveraging AI, machine learning, and advanced scanning technologies, Vitalia.ai ensures users make informed and healthier product choices. With just a snap, the app scrapes the web for detailed ingredient information and delivers insights via a fine-tuned LLM (Large Language Model), tailored to the user's unique health profile.
 
 ---
 
@@ -19,7 +19,7 @@ These challenges lead to uninformed decisions, increased health risks, and a lac
 
 ## **Solution**
 
-Vitali.ai addresses these challenges by offering:
+Vitalia.ai addresses these challenges by offering:
 
 1. **Snap & Scrape**: Simply snap a picture of a product to scrape the web for detailed ingredient and nutritional information.
 2. **Barcode & QR Code Scanning**: Instantly retrieve product details using barcode or QR code scanning.
@@ -69,7 +69,7 @@ Vitali.ai addresses these challenges by offering:
 
 - **Expanded Multilingual Support**: Provide product insights in more regional languages to enhance accessibility.
 - **Integration with Wearables**: Sync health profiles with wearable devices for real-time updates and recommendations.
-- **API for Developers**: Offer an API to integrate Vitali.ai's functionality into other platforms.
+- **API for Developers**: Offer an API to integrate Vitalia.ai's functionality into other platforms.
 
 ---
 ## **Getting Started**
@@ -112,24 +112,10 @@ Vitali.ai addresses these challenges by offering:
 
 ---
 
-## **Contributing**
+## **Resources**
 
-We welcome contributions to improve Vitali.ai! If you'd like to contribute, please follow these steps:
-
-1. Fork the repository.
-2. Create a feature branch:
-   ```bash
-   git checkout -b feature-name
-   ```
-3. Commit your changes:
-   ```bash
-   git commit -m "Add your message here"
-   ```
-4. Push your branch:
-   ```bash
-   git push origin feature-name
-   ```
-5. Open a pull request on GitHub.
+- **YouTube Video Overview**: [Watch Here](https://www.youtube.com/watch?v=FYfEDyfa2xg)
+- **Figma Design**: [View on Figma](https://www.figma.com/design/JsK7MAc8TEIT8CKzBjwEdm/Nutrigen?node-id=0-1&p=f&t=uxnOt5yfGxfSVlfe-0)
 
 ---
 
