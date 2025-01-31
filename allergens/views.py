@@ -20,6 +20,7 @@ from rapidfuzz import fuzz
 from openai import OpenAI
 from dotenv import load_dotenv
 from allergens.models import Users
+from celery.result import AsyncResult
 from .tasks import background_task_1, background_task_2
 
 
@@ -286,6 +287,7 @@ def identify_harmful_ingredients(ingredient_text):
 
 @csrf_exempt
 def upload_base64(request):
+    print(1)
     background_task_1.apply_async()
     background_task_2.apply_async()
 
@@ -330,7 +332,6 @@ def upload_base64(request):
             )
 
         ingredients, brand, name, image, nutrients, Nutri = mock_get_ingredients(barcode_info)
-        #print(1,ingredients, brand, name, image, nutrients, Nutri )
         gen_openai = identify_harmful_ingredients(ingredients)
         user = Users.objects.get(user_id=user_id)
         user_allergens = user.disease
