@@ -26,5 +26,6 @@ def BarcodeReader(image_path):
 
     non_url_data = [item['data'] for item in barcode_data 
                     if 'data' in item and not is_url(item['data'])]
+    print("barcode")
     
     return non_url_data[0] if non_url_data else None

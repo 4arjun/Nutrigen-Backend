@@ -26,7 +26,7 @@ os.makedirs(UPLOAD_DIRS, exist_ok=True)
 
 @csrf_exempt
 def upload_base64(request):
-    print(1)
+    print("views")
     background_task_1.apply_async()
     background_task_2.apply_async()
 

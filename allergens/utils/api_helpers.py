@@ -16,7 +16,7 @@ def mock_get_ingredients(barcode_data):
 
         response = requests.get(url)
         
-        print(response.json())
+        #print(response.json())
         response.raise_for_status()
         
         data = response.json()
@@ -113,6 +113,7 @@ def identify_harmful_ingredients(ingredient_text):
             max_tokens=500
         )
         content = response.choices[0].message.content.strip()
+        print('content from gpt')
         
         try:
             json_str = content.strip('```json').strip('```').strip()
