@@ -1,0 +1,3 @@
+brew install redis 
+redis-server
+celery -A SafeChoice worker -l info -B

@@ -10,3 +10,4 @@ pyvenv.cfg
 *.pyc
 .DS_Store
 .python-version
+celerybeat-schedule.db
