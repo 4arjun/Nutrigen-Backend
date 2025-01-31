@@ -6,7 +6,7 @@ from celery.result import AsyncResult
 def background_task_1():
     # Simulate a long-running task
     #time.sleep(3)
-    print("Task 1 is running")
+    print("Task 11145 is running")
     # your logic here
 
 @shared_task

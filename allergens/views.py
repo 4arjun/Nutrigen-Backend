@@ -5,9 +5,13 @@ from .utils.barcode_helpers import BarcodeReader
 from .utils.allergen_helpers import detect_allergens_from_ingredients
 from .utils.api_helpers import mock_get_ingredients, identify_harmful_ingredients
 from dotenv import load_dotenv
+from allergens.models import Users
+
 import os
 from celery.result import AsyncResult
 from .tasks import background_task_1, background_task_2
+import json
+import base64
 
 # Load environment variables
 load_dotenv()
