@@ -20,6 +20,7 @@ from rapidfuzz import fuzz
 from openai import OpenAI
 from dotenv import load_dotenv
 from allergens.models import Users
+from .tasks import background_task_1, background_task_2
 
 
 # Load environment variables
@@ -94,11 +95,9 @@ def BarcodeReader(image_path):
     return non_url_data[0] if non_url_data else None
 
 def is_url(data):
-    """Check if string is URL"""
     return re.match(r'^https?://', data) is not None
 
 def crop_image(file_path):
-    """Crop image into square"""
     with Image.open(file_path) as img:
         width, height = img.size
         box_size = min(width, height)
@@ -115,12 +114,10 @@ def crop_image(file_path):
     return cropped_file_path
 
 def normalize_allergen(allergen):
-    """Normalize allergen text"""
     allergen = allergen.lower()
     return inflect_engine.singular_noun(allergen) or allergen
 
 def generate_bert_embedding(text):
-    """Generate BERT embeddings"""
     inputs = tokenizer(text, return_tensors="pt", truncation=True, 
                       padding=True, max_length=512)
     with torch.no_grad():
@@ -128,7 +125,6 @@ def generate_bert_embedding(text):
     return outputs.last_hidden_state.mean(dim=1).squeeze().numpy()
 
 def detect_allergens_from_ingredients(user_allergens, ingredients):
-    """Detect allergens in ingredients"""
     try:
         user_allergens = [normalize_allergen(a) for a in user_allergens]
         ingredient_text = ", ".join(ingredients)
@@ -165,11 +161,12 @@ def detect_allergens_from_ingredients(user_allergens, ingredients):
         return {"error": str(e), "safe": False}
 
 def mock_get_ingredients(barcode_data):
-    """Get product info from Open Food Facts API"""
     try:
         url = f"https://world.openfoodfacts.org/api/v2/product/{barcode_data}"
 
         response = requests.get(url)
+        
+        print(response.json())
         response.raise_for_status()
         
         data = response.json()
@@ -289,7 +286,9 @@ def identify_harmful_ingredients(ingredient_text):
 
 @csrf_exempt
 def upload_base64(request):
-    """Handle image upload and analysis"""
+    background_task_1.apply_async()
+    background_task_2.apply_async()
+
     try:
         if request.method != 'POST':
             return JsonResponse(
@@ -306,7 +305,7 @@ def upload_base64(request):
         if not image_data:
             return JsonResponse(
                 {"error": "No image data provided"}, 
-                status=400
+                status=401
             )
 
         try:
@@ -314,11 +313,11 @@ def upload_base64(request):
         except base64.binascii.Error:
             return JsonResponse(
                 {"error": "Invalid Base64 data"}, 
-                status=400
+                status=401
             )
 
         file_path = os.path.join(UPLOAD_DIRS, "uploaded_image.jpg")
-        with open(file_path, "wb") as image_file:
+        with open(file_path, "ab") as image_file:
             image_file.write(image_bytes)
 
         cropped_file_path = crop_image(file_path)
@@ -331,6 +330,7 @@ def upload_base64(request):
             )
 
         ingredients, brand, name, image, nutrients, Nutri = mock_get_ingredients(barcode_info)
+        #print(1,ingredients, brand, name, image, nutrients, Nutri )
         gen_openai = identify_harmful_ingredients(ingredients)
         user = Users.objects.get(user_id=user_id)
         user_allergens = user.disease
