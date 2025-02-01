@@ -4,9 +4,18 @@ from .utils.image_helpers import rotate_image, crop_image
 from .utils.barcode_helpers import BarcodeReader
 from .utils.allergen_helpers import detect_allergens_from_ingredients
 from .utils.api_helpers import mock_get_ingredients, identify_harmful_ingredients
+from .utils.image_helpers import rotate_image, crop_image
+from .utils.barcode_helpers import BarcodeReader
+from .utils.allergen_helpers import detect_allergens_from_ingredients
+from .utils.api_helpers import mock_get_ingredients, identify_harmful_ingredients
 from dotenv import load_dotenv
 from allergens.models import Users
 
+import os
+from celery.result import AsyncResult
+from .tasks import background_task_1, background_task_2
+import json
+import base64
 import os
 from celery.result import AsyncResult
 from .tasks import background_task_1, background_task_2
@@ -49,6 +58,7 @@ def upload_base64(request):
             return JsonResponse(
                 {"error": "No image data provided"}, 
                 status=401
+                status=401
             )
 
         try:
@@ -57,10 +67,11 @@ def upload_base64(request):
             return JsonResponse(
                 {"error": "Invalid Base64 data"}, 
                 status=401
+                status=401
             )
 
         file_path = os.path.join(UPLOAD_DIRS, "uploaded_image.jpg")
-        with open(file_path, "wb") as image_file:
+        with open(file_path, "ab") as image_file:
             image_file.write(image_bytes)
 
         cropped_file_path = crop_image(file_path)
