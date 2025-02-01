@@ -11,3 +11,5 @@ pyvenv.cfg
 .DS_Store
 .python-version
 celerybeat-schedule.db
+uploads/*
+uploaded_images/*

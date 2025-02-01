@@ -24,6 +24,7 @@ def normalize_allergen(allergen):
 def generate_bert_embedding(text):
     inputs = tokenizer(text, return_tensors="pt", truncation=True, 
                       padding=True, max_length=512)
+    print("model2")
     with torch.no_grad():
         outputs = bert_model(**inputs)
     return outputs.last_hidden_state.mean(dim=1).squeeze().numpy()
@@ -55,7 +56,7 @@ def detect_allergens_from_ingredients(user_allergens, ingredients):
                     detected_allergens.add(predicted_allergen)
                     
         detected_allergens.update(set(predicted_allergens).intersection(set(user_allergens)))
-        
+        print("model3")
         return {
             "detected_allergens": list(detected_allergens),
             "safe": not bool(detected_allergens)
