@@ -19,7 +19,6 @@ inflect_engine = inflect.engine()
 
 def normalize_allergen(allergen):
     allergen = allergen.lower()
-    print("model1")
     return inflect_engine.singular_noun(allergen) or allergen
 
 def generate_bert_embedding(text):

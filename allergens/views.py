@@ -27,8 +27,10 @@ os.makedirs(UPLOAD_DIRS, exist_ok=True)
 @csrf_exempt
 def upload_base64(request):
     print("views")
-    background_task_1.apply_async()
-    background_task_2.apply_async()
+    r1=background_task_1.apply_async()
+    r2=background_task_2.apply_async()
+    print('r1',r1)
+    print(r2)
 
     try:
         if request.method != 'POST':
@@ -58,7 +60,7 @@ def upload_base64(request):
             )
 
         file_path = os.path.join(UPLOAD_DIRS, "uploaded_image.jpg")
-        with open(file_path, "ab") as image_file:
+        with open(file_path, "wb") as image_file:
             image_file.write(image_bytes)
 
         cropped_file_path = crop_image(file_path)

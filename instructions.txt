@@ -1,3 +1,4 @@
 brew install redis 
 redis-server
-celery -A SafeChoice worker -l info -B
+// celery -A SafeChoice worker -l info 
+celery -A SafeChoice worker -l info -c 4
