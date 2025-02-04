@@ -16,7 +16,7 @@ def rotate_image(image):
         center = (w // 2, h // 2)
         M = cv2.getRotationMatrix2D(center, angle, 1.0)
         return cv2.warpAffine(image, M, (w, h))
-    print("iamge1")
+    print("rotate_iamge")
     return image
 
 def crop_image(file_path):
@@ -32,5 +32,5 @@ def crop_image(file_path):
         cropped_img = img.crop((left, top, right, bottom))
         cropped_file_path = file_path.replace("uploaded_images", "uploads")  # Ensure different dir
         cropped_img.save(cropped_file_path)
-        print("iamge2")
+        print("crop_image")
     return cropped_file_path

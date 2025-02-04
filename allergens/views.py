@@ -9,10 +9,10 @@ from celery.result import AsyncResult
 
 from .utils.image_helpers import rotate_image, crop_image
 from .utils.barcode_helpers import BarcodeReader
-from .utils.allergen_helpers import detect_allergens_from_ingredients
-from .utils.api_helpers import mock_get_ingredients, identify_harmful_ingredients
+from .utils.api_helpers import mock_get_ingredients
+from .utils.file_uploader import save_to_temp_file
 
-from .tasks import background_task_1, background_task_2
+from .tasks import analyze_ingredients_and_allergens, get_task_responses
 from allergens.models import Users
 
 load_dotenv()
@@ -26,36 +26,39 @@ os.makedirs(UPLOAD_DIRS, exist_ok=True)
 @csrf_exempt
 def upload_base64(request):
     print("views")
-    r1=background_task_1.apply_async()
-    r2=background_task_2.apply_async()
-    print('r1',r1)
-    print(r2)
-
-    try:
+    
+    try :
+        image_data = None
+        user_id = None
         if request.method != 'POST':
             return JsonResponse(
                 {"error": "Invalid HTTP method. Use POST."}, 
                 status=405
             )
 
-        data = json.loads(request.body)
-        image_data = data.get("image")
-        user_id = data.get("userid")
-
-
+        if request.content_type == 'application/json':
+            print("application/json")
+            data = json.loads(request.body)
+            image_data = data.get("image")
+            user_id = data.get("userid")
+            
+        elif request.content_type =='multipart/form-data':
+            print("multipart/form-data")
+            image_file = request.FILES.get('image') 
+            user_id = request.POST.get('userid')
+            image_data = save_to_temp_file(image_file)            
         
         if not image_data:
-            return JsonResponse(
-                {"error": "No image data provided"}, 
-                status=401
-            )
-
+                return JsonResponse(
+                    {"error": "No image data provided"}, 
+                    status=401
+                )
+        
         try:
             image_bytes = base64.b64decode(image_data)
         except base64.binascii.Error:
             return JsonResponse(
                 {"error": "Invalid Base64 data"}, 
-                status=401
                 status=401
             )
 
@@ -73,7 +76,6 @@ def upload_base64(request):
             )
 
         ingredients, brand, name, image, nutrients, Nutri = mock_get_ingredients(barcode_info)
-        gen_openai = identify_harmful_ingredients(ingredients)
         user = Users.objects.get(user_id=user_id)
         user_allergens = user.disease
         # user_allergens = user_allergens.split(",")
@@ -93,14 +95,20 @@ def upload_base64(request):
         
 
 
-
-        allergen_detection_result = detect_allergens_from_ingredients(
-            user_allergens, 
-            ingredients
-        )
+        # gen_openai = identify_harmful_ingredients.apply_async(args=[ingredients])
+        # allergen_detection_result = detect_allergens_from_ingredients.apply_async(
+        #     args=[user_allergens, 
+        #     ingredients]
+        # )
+        
+        result = analyze_ingredients_and_allergens(user_allergens, ingredients)
+        responses = get_task_responses(result)
+        
         
         predictions = 23
-
+        
+        
+        
         result = {
             "status": "success",
             "code": barcode_info,
@@ -111,12 +119,12 @@ def upload_base64(request):
             "nutrients": nutrients,
             "Nutri": Nutri,
             "score": predictions,
-            "allergens": allergen_detection_result.get("detected_allergens", []),
-            "safe": allergen_detection_result.get("safe", True),
-            "hazard": gen_openai["hazard"],
-            "Long": gen_openai["long"],
+            "allergens": responses[1].get("detected_allergens", []),
+            "safe": responses[1].get("safe", True),
+            "hazard": responses[0]["hazard"],
+            "Long": responses[0]["long"],
             "Recommend": "Maximum of once a week",
-            "generated_text": gen_openai,
+            "generated_text": responses[0],
         }
 
         return JsonResponse(result, status=200)
