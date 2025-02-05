@@ -7,6 +7,7 @@ from rest_framework import status
 import jwt
 
 def login_required(fn):
+    #todo
     # Decorator to check if the user has sent a valid JWT with the request
     # def wrapper_fn(req):
     #     key = req.headers.get("Authorization")
