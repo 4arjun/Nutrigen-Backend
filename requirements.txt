@@ -87,3 +87,4 @@ djangorestframework
 celery[redis]
 channels
 channels_redis
+uvicorn
