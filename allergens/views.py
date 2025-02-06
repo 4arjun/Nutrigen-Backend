@@ -12,7 +12,7 @@ from .utils.barcode_helpers import BarcodeReader
 from .utils.api_helpers import mock_get_ingredients
 from .utils.file_uploader import save_to_temp_file
 
-from .tasks import analyze_ingredients_and_allergens, get_task_responses
+from .tasks import celery_call_gpt, celery_call_allergen_model
 from allergens.models import Users
 
 load_dotenv()
@@ -76,6 +76,8 @@ def upload_base64(request):
             )
 
         ingredients, brand, name, image, nutrients, Nutri = mock_get_ingredients(barcode_info)
+        celery_task_1 = celery_call_gpt.apply_async(args=[ingredients])
+
         user = Users.objects.get(user_id=user_id)
         user_allergens = user.disease
         # user_allergens = user_allergens.split(",")
@@ -94,18 +96,18 @@ def upload_base64(request):
         }
         
 
-        #todo
-        # gen_openai = identify_harmful_ingredients.apply_async(args=[ingredients])
-        # allergen_detection_result = detect_allergens_from_ingredients.apply_async(
-        #     args=[user_allergens, 
-        #     ingredients]
-        # )
+        
+        celery_task_2 = celery_call_allergen_model.apply_async(
+            args=[user_allergens, 
+            ingredients]
+        )
         
         
         
         predictions = 23
         
-        
+        gen_openai = celery_task_1.get() 
+        allergen_detection_result = celery_task_2.get() 
         
         result = {
             "status": "success",
@@ -117,12 +119,12 @@ def upload_base64(request):
             "nutrients": nutrients,
             "Nutri": Nutri,
             "score": predictions,
-            "allergens": responses[1].get("detected_allergens", []),
-            "safe": responses[1].get("safe", True),
-            "hazard": responses[0]["hazard"],
-            "Long": responses[0]["long"],
+            "allergens": allergen_detection_result.get("detected_allergens", []),
+            "safe": allergen_detection_result.get("safe", True),
+            "hazard": gen_openai["hazard"],
+            "Long": gen_openai["long"],
             "Recommend": "Maximum of once a week",
-            "generated_text": responses[0],
+            "generated_text": gen_openai,
         }
 
         return JsonResponse(result, status=200)

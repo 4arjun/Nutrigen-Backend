@@ -26,7 +26,6 @@ def normalize_allergen(allergen):
 def generate_bert_embedding(text):
     inputs = tokenizer(text, return_tensors="pt", truncation=True, 
                       padding=True, max_length=512)
-    print("model2")
     with torch.no_grad():
         outputs = bert_model(**inputs)
     return outputs.last_hidden_state.mean(dim=1).squeeze().numpy()

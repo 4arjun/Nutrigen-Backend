@@ -107,7 +107,7 @@ CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESULT_BACKEND')
 CELERY_TIMEZONE = 'UTC'
-
+CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
 # Whether to acknowledge task execution late (after the task has been completed)
 CELERY_ACKS_LATE = True
 
