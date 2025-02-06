@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'allergens',
     'corsheaders',
     'rest_framework',
+    'channels'
 
 ]
 
@@ -62,6 +63,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'SafeChoice.wsgi.application'
+ASGI_APPLICATION = 'SafeChoice.asgi.application'
+
 
 DATABASES = {
     'default': {
@@ -110,3 +113,12 @@ CELERY_ACKS_LATE = True
 
 # Whether to reject tasks on worker loss
 CELERY_REJECT_ON_WORKER_LOST = True
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [("redis", 6379)],
+        },
+    },
+}

@@ -8,11 +8,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from django.urls import path
 from allergens.views import upload_base64
+from allergens.consumers import MyWebSocketConsumer
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("upload-base64/",upload_base64,name="upload_base64")
 ]
 
+websocket_urlpatterns = [
+    path('ws/chat/', MyWebSocketConsumer.as_asgi()),
+]

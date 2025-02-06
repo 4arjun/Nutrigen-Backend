@@ -94,15 +94,13 @@ def upload_base64(request):
         }
         
 
-
+        #todo
         # gen_openai = identify_harmful_ingredients.apply_async(args=[ingredients])
         # allergen_detection_result = detect_allergens_from_ingredients.apply_async(
         #     args=[user_allergens, 
         #     ingredients]
         # )
         
-        result = analyze_ingredients_and_allergens(user_allergens, ingredients)
-        responses = get_task_responses(result)
         
         
         predictions = 23

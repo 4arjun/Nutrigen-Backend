@@ -1,19 +1,21 @@
 import os
+
+from channels.routing import ProtocolTypeRouter, URLRouter
 from django.core.asgi import get_asgi_application
+from channels.security.websocket import AllowedHostsOriginValidator
+from channels.auth import AuthMiddlewareStack
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'SafeChoice.settings')
 
-application = get_asgi_application()
+django_application = get_asgi_application()
+ 
 
-#todo : 
-from channels.routing import ProtocolTypeRouter, URLRouter
-from channels.security.websocket import AllowedHostsOriginValidator
-from channels.sessions import SessionMiddlewareStack
-from excelplay_dalalbull.routing import websocket_urlpatterns
+from .urls import websocket_urlpatterns #dont move this line up
+
 application = ProtocolTypeRouter({
     "http": get_asgi_application(),
 	"websocket": AllowedHostsOriginValidator(
-		SessionMiddlewareStack(
+		AuthMiddlewareStack(
 			URLRouter(websocket_urlpatterns)
 		)
 	),
